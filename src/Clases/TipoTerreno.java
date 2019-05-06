@@ -6,12 +6,13 @@
 package Clases;
 
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 
 /**
  *
  * @author Julio
  */
-public class TipoTerreno extends Casilla{
+public class TipoTerreno extends Casilla implements Serializable{
 
     public TipoTerreno(boolean destruible, int intDestruible) {
         super(destruible, intDestruible);

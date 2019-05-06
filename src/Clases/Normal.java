@@ -6,6 +6,7 @@
 package Clases;
 
 import java.awt.Color;
+import java.io.Serializable;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -15,7 +16,7 @@ import javax.swing.border.LineBorder;
  *
  * @author Julio
  */
-public class Normal extends TipoTerreno{
+public class Normal extends TipoTerreno implements Serializable{
     
     public Normal(boolean destruible, int intDestruible) {
         super(destruible, intDestruible);

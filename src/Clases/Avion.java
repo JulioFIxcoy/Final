@@ -5,14 +5,17 @@
  */
 package Clases;
 
+import java.io.Serializable;
+
 
 
 /**
  *
  * @author julio
  */
-public class Avion extends Vehiculo{
+public class Avion extends Vehiculo implements Serializable{
     private int velocidad;
+    private static int id=0;
     /**
      * Constructor que hace referencia al constructor padre
      * @param nombre 
@@ -23,8 +26,12 @@ public class Avion extends Vehiculo{
         super.setAtaque(7);
         super.setDefensa(3);
         super.setPunteria(70);
-        
+        id++;
         this.velocidad = 10;
+    }
+
+    public int getId() {
+        return id;
     }
 
   

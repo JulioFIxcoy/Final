@@ -6,31 +6,36 @@
 package Clases;
 
 import Vistas.Juego;
+import static Vistas.Principal.idioma;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.Serializable;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 
 /**
  *
  * @author julio
  */
-public class Escenario implements Serializable {
-    private int filas;
-    private int columnas;
-    private Casilla[][] escenario;
+public class Escenario 
+     //   extends Thread
+        implements Serializable {
     
-    private Jugador[] enemigos;
-    //private Jugador jugador;
-  
-    private int cantidadDeMontanas;
-    private int cantidadDeAgua;
-    private int posX;
-    private int posY;
+ 
 
     /**
      * 
@@ -41,11 +46,42 @@ public class Escenario implements Serializable {
         
         this.filas = filas;
         this.columnas = columnas;
+        
+         playerDos = new StringBuffer();
+        playerUno = new StringBuffer();
+        
+         pop = new JPopupMenu(idioma.getProperty("opcionesJuego"));
+        opciones = new JMenuItem[5];
+        opciones[0] = new JMenuItem(idioma.getProperty("atacar"));
+        opciones[1] = new JMenuItem(idioma.getProperty("colocarBot"));
+        opciones[2] = new JMenuItem(idioma.getProperty("moverVehiculo"));
+        opciones[3] = new JMenuItem(idioma.getProperty("cambiarVehiculo"));
+        opciones[4] = new JMenuItem(idioma.getProperty("usarArticulo"));
+//        acciones();
+        action();
+        for (JMenuItem opcione : opciones) {
+            opcione.setVisible(true);
+            pop.add(opcione);
+        }
+       
+        r(opciones);
+        pop.setSize(150, 250);
+        
+        
        
     }
     
     
-   
+    private void r(JMenuItem[] item){
+            Border line = new LineBorder(Color.DARK_GRAY);
+            Border margin = new EmptyBorder(5, 10, 5, 10);
+            Border compound = new CompoundBorder(line, margin);
+            // item.setBorder(compound);
+            for (JMenuItem each : item) {
+                 each.setBorder(compound);
+            }
+        }         
+         
 
     public Escenario() {
     }
@@ -201,21 +237,85 @@ public class Escenario implements Serializable {
     
     
 
+  //agregar metodo que ubique a los vehiculoss del jugador y enemigo 
+    
+     public StringBuffer getPlayerUno() {
+        return playerUno;
+    }
+
+    public void setPlayerUno(String playerUno) {
+        if (this.playerUno.length()>0) {
+            this.playerUno.setLength(0);
+            this.playerUno.append(playerUno);
+        }else
+            this.playerUno.append(playerUno);
+
+            if (playerUno.equalsIgnoreCase(idioma.getProperty("moverVehiculo"))) {
+                
+
+            }
+            
+            
+    }
+    
+
+    public StringBuffer getPlayerDos() {
+        return playerDos;
+    }
+
+    public void setPlayerDos(String playerDos) {
+        if (this.playerDos.length()>0) {
+            this.playerDos.setLength(0);
+            this.playerDos.append(playerUno);
+        }else
+        this.playerDos.append(playerDos);
+       
+    }
+    
+     public void forf(){
+        for (int i = 0; i < 100; i++) {
+            try {
+                System.out.println("text "+playerUno);
+                Thread.sleep(250);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Escenario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+   
+//     public void acciones(){
+//       if (playerUno.toString().equalsIgnoreCase(idioma.getProperty("usarVehiculo"))) {
+//                        forf();
+//                        start();
+//        }else if (playerUno.toString().equalsIgnoreCase(idioma.getProperty("cambiarVehiculo"))) {
+//                forf();
+//                start();
+//        }else if (playerUno.toString().equalsIgnoreCase(idioma.getProperty("colocarBot"))) {
+//                forf();
+//                start();
+//        }else if (playerUno.toString().equalsIgnoreCase(idioma.getProperty("atacar"))) {
+//            forf();
+//            start();
+//        }else if (playerUno.toString().equalsIgnoreCase(idioma.getProperty("moverVehiculo"))) {
+//                forf();
+//                start();
+//        }
+//    }
+//    @Override
+//    public void run(){
+//       forf();
+//    }
+   /*
+     
+    */
+    
    /**
      * inicializa la matriz que es del tipo seccion
      * inicializa las instancias secciones que se encuentran en la matriz
      * @param contenedor
      */
     public void initMatrizEscenario(Juego contenedor){
-        pop = new JPopupMenu("Opciones De Juego");
-        opciones = new JMenuItem[2];
-        opciones[0] = new JMenuItem("Atacar");
-        opciones[1] = new JMenuItem("colocar Bots");
-        opciones[0].setVisible(true);
-        opciones[1].setVisible(true);
-                 
-        pop.add(opciones[0]);
-        pop.add(opciones[1]);
+       
          int xButton = (contenedor.getWidth()/columnas);
         int yButton = (contenedor.getHeight()/filas);
         this.escenario = new Casilla[this.filas][this.columnas];
@@ -230,16 +330,97 @@ public class Escenario implements Serializable {
                 escenario[i][j].setVisible(true);
                 x=i; 
                 y = j;
+                escenario[i][j].addMouseListener(click);
+                escenario[i][j].add(pop);
                  
-                 contenedor.add(escenario[i][j]);
+                contenedor.add(escenario[i][j]);
                 
                 contenedor.setVisible(true);
             }
         }
             
     }
-  //agregar metodo que ubique a los vehiculoss del jugador y enemigo 
-    private int x,y;
+    MouseListener click = new MouseListener() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+           
+                pop.setLocation(e.getLocationOnScreen());
+                pop.setVisible(true);
+            
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+          
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+         
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+          
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            
+        }
+    };
+    
+    public void action(){
+       ;
+         
+         for (JMenuItem opcione : opciones) {
+            
+            opcione.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    
+                    System.out.println("click  "+opcione.getText());
+                   
+                   
+                 // start();
+                    if (juego.getTurno()==0) {
+                            setPlayerUno(opcione.getText());
+                    }else{
+                            setPlayerDos(opcione.getText());
+                    }
+                }
+            });
+             
+             
+            opcione.addMouseListener(new MouseAdapter() {
+
+             @Override
+             public void mouseEntered(MouseEvent e){
+                 opcione.setBackground(Color.BLUE);
+             }
+             @Override
+             public void mouseExited(MouseEvent e){
+                 opcione.setBackground(Color.WHITE);
+             }
+         });
+         
+        }
+         
+    }
+    
+    private ParametrosJuego juego;
+    private int filas;
+    private int columnas;
+    private Casilla[][] escenario;
+    
+    private Jugador[] enemigos;
+    private int cantidadDeMontanas;
+    private int cantidadDeAgua;
+    private int posX;
+    private int posY;
+    private StringBuffer playerUno;
+    private StringBuffer playerDos;
     private JPopupMenu pop;
     private JMenuItem[] opciones;
+    private int x,y;
+
 }

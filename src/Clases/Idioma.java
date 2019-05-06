@@ -7,12 +7,13 @@ package Clases;
 
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Properties;
 /**
  *
  * @author Julio
  */
-public class Idioma extends Properties{
+public class Idioma extends Properties implements Serializable{
 
     private static final long serialVersionUID = 1L;
 

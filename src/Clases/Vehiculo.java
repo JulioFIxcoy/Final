@@ -23,7 +23,8 @@ public class Vehiculo implements Serializable{
     private String nombre;
     private int defensa,ataque,punteria,experiencia;
     private boolean enBatalla;
-    
+    private int posicionX;
+    private int posicionY;
     public Vehiculo(String nombre) {
         
        this.nombre = nombre;
@@ -40,6 +41,7 @@ public class Vehiculo implements Serializable{
       this.experiencia=1;
      arma = new Arma(r.nextInt(100), "Basica");
     }
+    
 
     public int getExperiencia() {
         return experiencia;
@@ -147,6 +149,22 @@ public class Vehiculo implements Serializable{
 
     public void setArma(Arma arma) {
         this.arma = arma;
+    }
+
+    public int getPosicionX() {
+        return posicionX;
+    }
+
+    public void setPosicionX(int posicionX) {
+        this.posicionX = posicionX;
+    }
+
+    public int getPosicionY() {
+        return posicionY;
+    }
+
+    public void setPosicionY(int posicionY) {
+        this.posicionY = posicionY;
     }
     
     

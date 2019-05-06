@@ -5,6 +5,7 @@
  */
 package Clases;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,10 +13,11 @@ import java.util.Scanner;
  *
  * @author julio
  */
-public class Jugador {
+public class Jugador implements Serializable{
+   
     private String nombre;
     private int cantidadDeJuegos;
-    private int id;
+    private static int id=-1;
     private int nivel;
     private int oro;
     private int experiencia;
@@ -36,11 +38,11 @@ public class Jugador {
     private int Fila;
     private int columna;
   
-    public Jugador(String nombre, int cantidadDeJuegos, int id) {
+    public Jugador(String nombre) {
         usarVehiculo = 0;
         this.nombre = nombre;
-        this.cantidadDeJuegos = cantidadDeJuegos;
-        this.id = id;
+        this.cantidadDeJuegos = 0;
+        this.id ++;
         init();
         givenIn = false;
         

@@ -6,6 +6,7 @@
 package Vistas;
 
 import Clases.Escenario;
+import Clases.ParametrosJuego;
 import static Vistas.Principal.idioma;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -81,7 +82,7 @@ public class Juego extends javax.swing.JPanel implements Serializable {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dialogo.jpg"))); // NOI18N
         opcionTablero.getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1, 335, 300));
 
-        setLayout(new java.awt.GridLayout(1, 0));
+        setLayout(new java.awt.GridLayout());
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/posibleFondo.jpg"))); // NOI18N
         add(lblFondo);
@@ -94,17 +95,19 @@ public class Juego extends javax.swing.JPanel implements Serializable {
             
             JLabel lbl= (JLabel) e.getSource();
            
-            char sixee[]=lbl.getText().toCharArray();
-            nuevo = new Escenario(Integer.parseInt(Character.toString(sixee[0])), Integer.parseInt(Character.toString(sixee[2])));
-            
+            char size[]=lbl.getText().toCharArray();
+           
+            game = new  ParametrosJuego(Integer.parseInt(Character.toString(size[0])),Integer.parseInt(Character.toString(size[2])), 1);
+            nuevo = new Escenario(game.getFila(), game.getColumna());
             nuevo.initMatrizEscenario(Juego.this);
-            repaint();
+            
+            Juego.this.repaint();
+           
             Principal.setVisibleSave(true);
-            lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/posibleFondo.jpg"))); // NOI18N
-            add(lblFondo);
             opcionTablero.dispose();
+             
         }
-
+        
         @Override
         public void mousePressed(MouseEvent e) {
             
@@ -130,11 +133,20 @@ public class Juego extends javax.swing.JPanel implements Serializable {
     public JLabel getLblFondo() {
         return lblFondo;
     }
+
+    public Escenario getNuevo() {
+        return nuevo;
+    }
+
+    public void setNuevo(Escenario nuevo) {
+        this.nuevo = nuevo;
+    }
     
-    public static String actionPlayer1;
-    public static String actionPlayer2;
+    public static StringBuilder actionPlayer1;
+    public static StringBuilder actionPlayer2;
     
     private Escenario nuevo ;
+    public static ParametrosJuego game;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl64;

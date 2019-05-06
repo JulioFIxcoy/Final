@@ -7,6 +7,7 @@ package Clases;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -16,7 +17,7 @@ import javax.swing.border.LineBorder;
  *
  * @author Julio
  */
-public class Lagos extends TipoTerreno{
+public class Lagos extends TipoTerreno implements Serializable{
 
     public Lagos(boolean destruible, int intDestruible) {
         super(destruible, intDestruible);

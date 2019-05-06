@@ -5,10 +5,31 @@
  */
 package Vistas;
 
+import Archivos.BinariosPlantilla;
+import Archivos.RecuperarPlantilla;
+import Clases.Comodin;
+import Clases.Escenario;
 import Clases.Idioma;
+import Clases.Jugador;
+import Clases.ParametrosJuego;
+import static Vistas.Juego.game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,6 +37,7 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -27,11 +49,11 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     public Principal() {
-        idioma = new Idioma("2");
+        
         //650,500
         initComponents();
         itemSaveGame.setVisible(false);
-        setSize(1320, 890);//885
+        setSize(1320, 730);//885
         setTitle(idioma.getProperty("titulo"));
         
         personalizar(jMenuItem1);
@@ -40,6 +62,9 @@ public class Principal extends javax.swing.JFrame {
         personalizar(itemSaveGame);
         personalizar(itemReports);
         personalizar(itemStatistics);
+        fileChooser.setVisible(false);
+        crearCarpetas();
+        
     }
   private void personalizar(JMenuItem item){
        Border line = new LineBorder(Color.DARK_GRAY);
@@ -57,7 +82,9 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         panelPrincipal = new javax.swing.JPanel();
+        fileChooser = new javax.swing.JFileChooser();
         lblFondo = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
@@ -67,7 +94,14 @@ public class Principal extends javax.swing.JFrame {
         itemSaveGame = new javax.swing.JMenuItem();
         itemReports = new javax.swing.JMenuItem();
         itemStatistics = new javax.swing.JMenuItem();
-        edit = new javax.swing.JMenu();
+        opciones = new javax.swing.JMenu();
+        createPlayer = new javax.swing.JMenuItem();
+        createVehicle = new javax.swing.JMenuItem();
+        tienda = new javax.swing.JMenu();
+        kit = new javax.swing.JMenuItem();
+        tiendaVehiculo = new javax.swing.JMenuItem();
+        configuracion = new javax.swing.JMenu();
+        ayuda = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -76,6 +110,8 @@ public class Principal extends javax.swing.JFrame {
         setResizable(false);
 
         panelPrincipal.setLayout(null);
+        panelPrincipal.add(fileChooser);
+        fileChooser.setBounds(360, 40, 506, 326);
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondo.png"))); // NOI18N
         panelPrincipal.add(lblFondo);
@@ -83,6 +119,7 @@ public class Principal extends javax.swing.JFrame {
 
         file.setText(idioma.getProperty("archivo"));
 
+        menuJuego.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/control.png"))); // NOI18N
         menuJuego.setText(idioma.getProperty("juego"));
 
         itemJuegoNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mas.png"))); // NOI18N
@@ -96,10 +133,20 @@ public class Principal extends javax.swing.JFrame {
 
         itemContinue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/play.png"))); // NOI18N
         itemContinue.setText(idioma.getProperty("continuarJuego"));
+        itemContinue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemContinueActionPerformed(evt);
+            }
+        });
         menuJuego.add(itemContinue);
 
         itemSaveGame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.jpg"))); // NOI18N
         itemSaveGame.setText(idioma.getProperty("guardarJuego"));
+        itemSaveGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSaveGameActionPerformed(evt);
+            }
+        });
         menuJuego.add(itemSaveGame);
 
         file.add(menuJuego);
@@ -122,8 +169,51 @@ public class Principal extends javax.swing.JFrame {
 
         barraMenu.add(file);
 
-        edit.setText(idioma.getProperty("ayuda"));
-        barraMenu.add(edit);
+        opciones.setText(idioma.getProperty("opciones"));
+
+        createPlayer.setText(idioma.getProperty("cJ"));
+        createPlayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createPlayerActionPerformed(evt);
+            }
+        });
+        opciones.add(createPlayer);
+
+        createVehicle.setText(idioma.getProperty("cV"));
+        createVehicle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createVehicleActionPerformed(evt);
+            }
+        });
+        opciones.add(createVehicle);
+
+        tienda.setText(idioma.getProperty("tienda"));
+
+        kit.setText("kit's");
+        kit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kitActionPerformed(evt);
+            }
+        });
+        tienda.add(kit);
+
+        tiendaVehiculo.setText(idioma.getProperty("vehiculo")+"s");
+        tiendaVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tiendaVehiculoActionPerformed(evt);
+            }
+        });
+        tienda.add(tiendaVehiculo);
+
+        opciones.add(tienda);
+
+        barraMenu.add(opciones);
+
+        configuracion.setText(idioma.getProperty("configuracion"));
+        barraMenu.add(configuracion);
+
+        ayuda.setText(idioma.getProperty("ayuda"));
+        barraMenu.add(ayuda);
 
         setJMenuBar(barraMenu);
 
@@ -142,16 +232,20 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemJuegoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemJuegoNuevoActionPerformed
-       
+       int componen = panelPrincipal.getComponents().length;
         for (Component component : panelPrincipal.getComponents()) {
-            System.out.println(component.getClass().getCanonicalName());
-            if (component.getClass().getCanonicalName().equalsIgnoreCase("Vistas.Juego")) {
-                System.out.println("hay un juego en curso");
-                JOptionPane.showMessageDialog(null, "Hay Un Juego En Curso", "Informacion", JOptionPane.WARNING_MESSAGE);
-            }else{
-                JPanel nuevo = new Juego();
-                 addPanel(nuevo);
-            }
+                    componen--;
+                    System.out.println(component.getClass().getCanonicalName());
+                    if (component.getClass().getCanonicalName().equalsIgnoreCase("Vistas.Juego")) {
+                        System.out.println("hay un juego en curso");
+                        JOptionPane.showMessageDialog(null, "Hay Un Juego En Curso", "Informacion", JOptionPane.WARNING_MESSAGE);
+                        componen=-1;
+                    }else if (componen == 0){
+                        JPanel nuevo = new Juego();
+                         addPanel(nuevo);
+                   //      nuevo.repaint();
+                         //panelPrincipal.repaint();
+                    }
         }
     }//GEN-LAST:event_itemJuegoNuevoActionPerformed
 
@@ -167,10 +261,72 @@ public class Principal extends javax.swing.JFrame {
         JPanel deEstadistica = new Estadistica();
         addPanel(deEstadistica);
     }//GEN-LAST:event_itemStatisticsActionPerformed
+
+    private void itemSaveGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSaveGameActionPerformed
+            BinariosPlantilla<ParametrosJuego> crearBinario = new BinariosPlantilla<>();
+            
+          for (Component component : panelPrincipal.getComponents()) {
+            System.out.println(component.getClass().getCanonicalName());
+            if (component.getClass().getCanonicalName().equalsIgnoreCase("Vistas.Juego")) {
+                
+                   
+                
+            
+               path ="";
+                crearBinario.writeObjectBin(game, mkdirSave, String.valueOf(game.getId()), ".game");
+                System.out.println("finnal");
+                //JOptionPane.showMessageDialog(null, "Hay Un Juego En Curso", "Informacion", JOptionPane.WARNING_MESSAGE);
+            }else{
+                JPanel nuevo = new Juego();
+                 addPanel(nuevo);
+            }
+        }
+            
+    }//GEN-LAST:event_itemSaveGameActionPerformed
+
+    private void itemContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemContinueActionPerformed
+//        fileChooser.setVisible(true);
+//        FileNameExtensionFilter filtro = new FileNameExtensionFilter(idioma.getProperty("juego"),"game" );
+//        fileChooser.setFileFilter(filtro);
+//        fileChooser.showOpenDialog(null);
+//        File fileGame = fileChooser.getSelectedFile();
+//        String pathGame = fileGame.getAbsolutePath();
+//        RecuperarPlantilla<Juego> continuar = new RecuperarPlantilla<Juego>();
+//        Juego anterior = continuar.recuperar(pathGame);
+//        addPanel(anterior);
+
+        Tienda venta = new Tienda();
+        addPanel(venta);
+                
+    }//GEN-LAST:event_itemContinueActionPerformed
+
+    private void createVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createVehicleActionPerformed
+        CrearVehiculos crear = new CrearVehiculos();
+        addPanel(crear);
+        
+    }//GEN-LAST:event_createVehicleActionPerformed
+
+    private void createPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPlayerActionPerformed
+        Tienda player = new Tienda();
+        addPanel(player);
+    }//GEN-LAST:event_createPlayerActionPerformed
+
+    private void kitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kitActionPerformed
+        Player enTienda = new Player();
+        addPanel(enTienda);
+    }//GEN-LAST:event_kitActionPerformed
+
+    private void tiendaVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiendaVehiculoActionPerformed
+        TiendaVehiculos playerEn = new TiendaVehiculos();
+        addPanel(playerEn);
+    }//GEN-LAST:event_tiendaVehiculoActionPerformed
 public void addPanel(JPanel panel){
     
-        panel.setSize(1320, 890);
+//    System.out.println("panel altura"+this.getHeight());
+//    System.out.println("panelPrincipal"+panel.getHeight());
+        panel.setSize(panelPrincipal.getWidth() , 730 );
         panel.setLocation(0,0);
+       
         panelPrincipal.removeAll();
         panelPrincipal.add(panel, BorderLayout.CENTER);
         panelPrincipal.revalidate();
@@ -207,27 +363,152 @@ public static void setVisibleSave(boolean visible){
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
+        File conf = new File ("configuracion");
+        if (conf.exists()) {
+                System.out.println(File.separatorChar);
+            File archivo = new File ("configuracion"+File.separatorChar+"conf.txt");
+            FileReader fr;
+            try {
+                fr = new FileReader (archivo);
+                   BufferedReader br = new BufferedReader(fr);
+      
+                   idioma = new Idioma(br.readLine());
+                    String linea = br.readLine();
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new Principal().setVisible(true);
+                        }
+                    });
+                    
+            } catch (IOException ioe) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ioe);
+            
             }
-        });
+
+        }else{
+            JFrame nuevo = new JFrame("Set");
+            
+                  nuevo.pack();
+                  nuevo.setSize(100, 100);
+                  JPanel panel = new JPanel(new GridBagLayout());
+                  panel.setSize(100, 100);
+                  JButton es = new JButton("Español");
+                  JButton in = new JButton("English");
+                  
+                es.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        escribirConf(1);
+                    System.exit(0);
+                    }
+                });
+                in.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    escribirConf(2);
+                    System.exit(0);
+                }
+            });
+                es.setVisible(true);
+                in.setVisible(true);
+                panel.add(in);
+                panel.add(es);
+                panel.setVisible(true);
+                nuevo.add(panel);
+                nuevo.setVisible(true);
+                
+                
+                  
+        }
+        
+        
+        
+        
     }
-    
-    
+    public static void escribirConf(int idioma){
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+         try
+        {
+             File directorio=new File("configuracion");
+             directorio.mkdir();
+            String carp = directorio.getAbsoluteFile().getAbsolutePath()+File.separatorChar;
+            fichero = new FileWriter(carp+"conf.txt");
+            pw = new PrintWriter(fichero);
+
+           
+                pw.println(idioma);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           // Nuevamente aprovechamos el finally para 
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
+    private String carpeta(String pathDirectorio ){
+        File directorio=new File(pathDirectorio);
+        
+        if (!directorio.exists()) {
+            directorio.mkdir(); 
+            return directorio.getAbsoluteFile().getAbsolutePath()+File.separatorChar;
+        }
+        System.out.println(File.separatorChar);
+        System.out.println(pathDirectorio+directorio.getAbsoluteFile().getAbsolutePath()+File.separatorChar);
+        return directorio.getAbsoluteFile().getAbsolutePath()+File.separatorChar;
+    }
+    public void  crearCarpetas(){
+        
+        mkdirPlayer = carpeta("Player");
+        mkdirReportes = carpeta("Reportes");
+        mkdirTienda = carpeta("Tienda");
+        
+        mkdirSave = carpeta("Juegos");
+        conf = carpeta("configuracion");
+        
+        mkdirVehiculos = carpeta("Vehiculos");
+        mkdirTank = carpeta(mkdirVehiculos+"Tank");
+        mkdirAir = carpeta(mkdirVehiculos+"AirPlane");
+    }
+    static String conf;
+    static String mkdirPlayer;
+    static String mkdirVehiculos;
+    static String mkdirTienda;
+    static String mkdirReportes;
+    static String mkdirSave;
+    static String mkdirTank;
+    static String mkdirAir;
+    public static Jugador uno;
+    public static Jugador dos; 
+    private String path;
     public static Idioma idioma;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu ayuda;
     private javax.swing.JMenuBar barraMenu;
-    private javax.swing.JMenu edit;
+    private javax.swing.JMenu configuracion;
+    private javax.swing.JMenuItem createPlayer;
+    private javax.swing.JMenuItem createVehicle;
     private javax.swing.JMenu file;
+    private javax.swing.JFileChooser fileChooser;
     private javax.swing.JMenuItem itemContinue;
     private javax.swing.JMenuItem itemJuegoNuevo;
     private javax.swing.JMenuItem itemReports;
     private static javax.swing.JMenuItem itemSaveGame;
     private javax.swing.JMenuItem itemStatistics;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JMenuItem kit;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JMenu menuJuego;
+    private javax.swing.JMenu opciones;
     public static javax.swing.JPanel panelPrincipal;
+    private javax.swing.JMenu tienda;
+    private javax.swing.JMenuItem tiendaVehiculo;
     // End of variables declaration//GEN-END:variables
 }
