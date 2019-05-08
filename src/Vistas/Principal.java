@@ -101,6 +101,7 @@ public class Principal extends javax.swing.JFrame {
         kit = new javax.swing.JMenuItem();
         tiendaVehiculo = new javax.swing.JMenuItem();
         configuracion = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         ayuda = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -210,6 +211,20 @@ public class Principal extends javax.swing.JFrame {
         barraMenu.add(opciones);
 
         configuracion.setText(idioma.getProperty("configuracion"));
+        configuracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                configuracionActionPerformed(evt);
+            }
+        });
+
+        jMenuItem2.setText(idioma.getProperty("idioma"));
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        configuracion.add(jMenuItem2);
+
         barraMenu.add(configuracion);
 
         ayuda.setText(idioma.getProperty("ayuda"));
@@ -232,21 +247,25 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemJuegoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemJuegoNuevoActionPerformed
-       int componen = panelPrincipal.getComponents().length;
-        for (Component component : panelPrincipal.getComponents()) {
-                    componen--;
-                    System.out.println(component.getClass().getCanonicalName());
-                    if (component.getClass().getCanonicalName().equalsIgnoreCase("Vistas.Juego")) {
-                        System.out.println("hay un juego en curso");
-                        JOptionPane.showMessageDialog(null, "Hay Un Juego En Curso", "Informacion", JOptionPane.WARNING_MESSAGE);
-                        componen=-1;
-                    }else if (componen == 0){
-                        JPanel nuevo = new Juego();
-                         addPanel(nuevo);
-                   //      nuevo.repaint();
-                         //panelPrincipal.repaint();
-                    }
-        }
+
+         SeleccinarJugador j = new SeleccinarJugador();
+        addPanel(j);
+
+//       int componen = panelPrincipal.getComponents().length;
+//        for (Component component : panelPrincipal.getComponents()) {
+//                    componen--;
+//                    System.out.println(component.getClass().getCanonicalName());
+//                    if (component.getClass().getCanonicalName().equalsIgnoreCase("Vistas.Juego")) {
+//                        System.out.println("hay un juego en curso");
+//                        JOptionPane.showMessageDialog(null, "Hay Un Juego En Curso", "Informacion", JOptionPane.WARNING_MESSAGE);
+//                        componen=-1;
+//                    }else if (componen == 0){
+//                        JPanel nuevo = new Juego();
+//                         addPanel(nuevo);
+//                   //      nuevo.repaint();
+//                         //panelPrincipal.repaint();
+//                    }
+//        }
     }//GEN-LAST:event_itemJuegoNuevoActionPerformed
 
     private void itemReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemReportsActionPerformed
@@ -320,6 +339,16 @@ public class Principal extends javax.swing.JFrame {
         TiendaVehiculos playerEn = new TiendaVehiculos();
         addPanel(playerEn);
     }//GEN-LAST:event_tiendaVehiculoActionPerformed
+
+    private void configuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracionActionPerformed
+    
+    }//GEN-LAST:event_configuracionActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+           System.out.println("Click");
+       
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 public void addPanel(JPanel panel){
     
 //    System.out.println("panel altura"+this.getHeight());
@@ -344,9 +373,25 @@ public static void setVisibleSave(boolean visible){
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Darcula".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Darcula".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -475,7 +520,9 @@ public static void setVisibleSave(boolean visible){
         mkdirVehiculos = carpeta("Vehiculos");
         mkdirTank = carpeta(mkdirVehiculos+"Tank");
         mkdirAir = carpeta(mkdirVehiculos+"AirPlane");
+        mkdirPlayerPlayer = carpeta(mkdirPlayer+"Player");
     }
+    static String mkdirPlayerPlayer;
     static String conf;
     static String mkdirPlayer;
     static String mkdirVehiculos;
@@ -502,6 +549,7 @@ public static void setVisibleSave(boolean visible){
     private static javax.swing.JMenuItem itemSaveGame;
     private javax.swing.JMenuItem itemStatistics;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JMenuItem kit;
     private javax.swing.JLabel lblFondo;

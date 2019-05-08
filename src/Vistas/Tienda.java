@@ -6,8 +6,12 @@
 package Vistas;
 
 import Archivos.BinariosPlantilla;
+import Clases.Avion;
 import Clases.Jugador;
+import Clases.Tanque;
+import Clases.Vehiculo;
 import static Vistas.Principal.idioma;
+import java.io.File;
 
 /**
  *
@@ -59,11 +63,23 @@ public class Tienda extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Jugador nuevo = new Jugador(txtNombre.getText());
+        File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getId()));
+        carpeta.mkdir();
+        String path = carpeta.getAbsolutePath()+File.separatorChar;
         BinariosPlantilla<Jugador> escribir = new BinariosPlantilla<>();
         escribir.writeObjectBin(nuevo, Principal.mkdirPlayer, String.valueOf(nuevo.getId()), ".player");
     }//GEN-LAST:event_jButton1ActionPerformed
-
-
+    public void vehiculosUsuario(){
+        this.vehiculo[0] = new Tanque("T-34-76");
+        this.vehiculo[1]= new Avion("Sukhoi Su-27");
+        this.vehiculo[2]= new Tanque("IS-2");
+    }
+    
+    
+    private Vehiculo[] vehiculo;
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;

@@ -11,6 +11,7 @@ import Clases.Tanque;
 import static Vistas.Principal.idioma;
 import static Vistas.Principal.mkdirAir;
 import static Vistas.Principal.mkdirTank;
+import java.io.File;
 
 /**
  *
@@ -46,7 +47,7 @@ public class CrearVehiculos extends javax.swing.JPanel {
         jLabel2.setText("Nombre");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 130, 60));
 
-        tanque.setText(idioma.getProperty("Tanque"));
+        tanque.setText(idioma.getProperty("tanque"));
         tanque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tanqueActionPerformed(evt);
@@ -81,14 +82,14 @@ public class CrearVehiculos extends javax.swing.JPanel {
         // TODO add your handling code here:
         Tanque nuevo = new Tanque(txtNombre.getText());
         BinariosPlantilla<Tanque> write = new BinariosPlantilla<>();
-        write.writeObjectBin(nuevo, mkdirTank, String.valueOf(nuevo.getId()), ".tank");
+        write.writeObjectBin(nuevo, Principal.mkdirTienda, String.valueOf(nuevo.getId()), ".tank");
     }//GEN-LAST:event_tanqueActionPerformed
 
     private void avionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avionActionPerformed
         // TODO add your handling code here:
         Avion nuevo = new Avion(txtNombre.getText());
         BinariosPlantilla<Avion> write = new BinariosPlantilla<>();
-        write.writeObjectBin(nuevo, mkdirAir, String.valueOf(nuevo.getId()), ".air");
+        write.writeObjectBin(nuevo, Principal.mkdirTienda, String.valueOf(nuevo.getId()), ".air");
         
     }//GEN-LAST:event_avionActionPerformed
 

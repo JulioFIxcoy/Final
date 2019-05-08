@@ -82,10 +82,18 @@ public class Juego extends javax.swing.JPanel implements Serializable {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dialogo.jpg"))); // NOI18N
         opcionTablero.getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1, 335, 300));
 
-        setLayout(new java.awt.GridLayout());
-
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/posibleFondo.jpg"))); // NOI18N
-        add(lblFondo);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     MouseListener click = new MouseListener(){
@@ -99,9 +107,12 @@ public class Juego extends javax.swing.JPanel implements Serializable {
            
             game = new  ParametrosJuego(Integer.parseInt(Character.toString(size[0])),Integer.parseInt(Character.toString(size[2])), 1);
             nuevo = new Escenario(game.getFila(), game.getColumna());
+            
+            nuevo.setJuego(game);
             nuevo.initMatrizEscenario(Juego.this);
             
-            Juego.this.repaint();
+            repaint();
+           // Juego.this.repaint();
            
             Principal.setVisibleSave(true);
             opcionTablero.dispose();

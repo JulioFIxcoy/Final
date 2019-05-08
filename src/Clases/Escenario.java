@@ -315,7 +315,7 @@ public class Escenario
      * @param contenedor
      */
     public void initMatrizEscenario(Juego contenedor){
-       
+       contenedor.removeAll();
          int xButton = (contenedor.getWidth()/columnas);
         int yButton = (contenedor.getHeight()/filas);
         this.escenario = new Casilla[this.filas][this.columnas];
@@ -336,6 +336,7 @@ public class Escenario
                 contenedor.add(escenario[i][j]);
                 
                 contenedor.setVisible(true);
+                contenedor.repaint();
             }
         }
             
@@ -406,6 +407,34 @@ public class Escenario
         }
          
     }
+
+    public ParametrosJuego getJuego() {
+        return juego;
+    }
+
+    public void setJuego(ParametrosJuego juego) {
+        this.juego = juego;
+    }
+    public void aleatoriedadDeTerrenos(){
+        Random random = new Random();
+        int x = random.nextInt(filas);
+        int y = random.nextInt(columnas);
+        
+        
+        if (random.nextInt(4)==0) {
+            escenario[x][y]=null;
+            escenario[x][y]= new Comodin(true, 100);
+            
+        }else if (random.nextInt(3)==1) {
+            escenario[x][y]=null;
+            escenario[x][y]= new Lagos(true, 100);
+        }else if (random.nextInt(4)==2) {
+            escenario[x][y]=null;
+            escenario[x][y]= new Mountain(true, 100);
+        }
+        
+    }
+    
     
     private ParametrosJuego juego;
     private int filas;

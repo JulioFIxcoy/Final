@@ -25,6 +25,7 @@ public class Vehiculo implements Serializable{
     private boolean enBatalla;
     private int posicionX;
     private int posicionY;
+    private double precio;
     public Vehiculo(String nombre) {
         
        this.nombre = nombre;
@@ -37,12 +38,20 @@ public class Vehiculo implements Serializable{
         this.meDerrota = 0;
         Random r = new Random();
       int rand = r.nextInt(100);
-      
+      precio = 25;
       this.experiencia=1;
      arma = new Arma(r.nextInt(100), "Basica");
     }
-    
 
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    
+    
     public int getExperiencia() {
         return experiencia;
     }
