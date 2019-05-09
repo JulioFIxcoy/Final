@@ -18,7 +18,7 @@ public abstract class Casilla extends JButton implements ActionListener,Serializ
  * casilla se inicializa la casilla
  */
    
-  private Jugador jugador;
+  
 
    
     public Casilla(boolean destruible, int intDestruible) {
@@ -26,38 +26,7 @@ public abstract class Casilla extends JButton implements ActionListener,Serializ
         this.intDestruible = intDestruible;
        
        
-        // System.out.println("hola");  
-        
-        
-                  //
-                        
-                       // System.out.println("acction");
-                       //  pop.add(opciones[0]);
-        
-                      
-                   
-//         addMouseListener(new MouseAdapter() {
-//
-//                @Override
-//                public void mouseReleased(MouseEvent e){
-//                    System.out.println("e.getX() = " + e.getX());
-//                    System.out.println("e.getY() = " + e.getY());
-//                   
-////                    if (e.getButton() == MouseEvent.BUTTON3) {
-////                         pop = new JPopupMenu("Opciones De Juego");
-////      
-////                    pop.show(e.getComponent(), e.getX(), e.getY());
-////                    }
-////                    
-//                }
-//                @Override
-//                public void mouseExited(MouseEvent e){
-//                //   pop.setVisible(false);
-//                }
-//         });
-           
-                  
-      //   action();
+      setCasillaColor();
     }
     
 
@@ -103,42 +72,24 @@ public abstract class Casilla extends JButton implements ActionListener,Serializ
     public void setPosicionY(int posicionY) {
         this.posicionY = posicionY;
     }
-    
-
-//    MouseListener n = new MouseListener() {
-//      @Override
-//      public void mouseClicked(MouseEvent e) {
-//          
-//      }
-//
-//      @Override
-//      public void mousePressed(MouseEvent e) {
-//          throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//      }
-//
-//      @Override
-//      public void mouseReleased(MouseEvent e) {
-//          throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//      }
-//
-//      @Override
-//      public void mouseEntered(MouseEvent e) {
-//          throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//      }
-//
-//      @Override
-//      public void mouseExited(MouseEvent e) {
-//          throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//      }
-//  };
+    public void imgBot(){
+        setIcon(new javax.swing.ImageIcon(getClass().getResource(jugador.getBot().getImgPath())));
+    }
+    public void imgJugador(){
+      //  setIcon(new javax.swing.ImageIcon(getClass().getResource(jugador.getVehiculoActual().getImgPath())));
+        System.out.println(jugador.toString());
+    //  setIcon(new javax.swing.ImageIcon(getClass().getResource(jugador.getPathImg())));
+        setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/comodin2.jpg")));
+      repaint();
+    }
     abstract void setCasillaColor();
-
+    
    
 
 
 private boolean destruible;
 private int intDestruible;
 private int posicionX,posicionY;
- 
+private Jugador jugador;
     
 }

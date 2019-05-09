@@ -7,7 +7,9 @@ package Clases;
 
 import Vistas.Juego;
 import static Vistas.Principal.idioma;
+import static Vistas.Principal.uno;
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -67,7 +69,17 @@ public class Escenario
         r(opciones);
         pop.setSize(150, 250);
         
-        
+        btn=new Casilla(true, columnas) {
+            @Override
+            void setCasillaColor() {
+               
+            }
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
        
     }
     
@@ -338,15 +350,26 @@ public class Escenario
                 contenedor.setVisible(true);
                 contenedor.repaint();
             }
-        }
             
+        }
+        
+        Random r = new Random();
+        int x = 0;
+        while (x<10) {
+            aleatoriedadDeTerrenos(contenedor);
+            x= r.nextInt(20);
+        }
     }
     MouseListener click = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
            
                 pop.setLocation(e.getLocationOnScreen());
+                btn = (Casilla) e.getSource();
+                System.out.println(btn.getPosicionX()+","+btn.getPosicionY());
                 pop.setVisible(true);
+                
+                
             
         }
 
@@ -380,10 +403,13 @@ public class Escenario
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     
                     System.out.println("click  "+opcione.getText());
-                   
-                   
+                   // System.out.println("evt"+evt.getSource());
+                    System.out.println(btn.getPosicionX()+btn.getPosicionY());
+                    btn.setJugador(uno);
+                    btn.imgJugador();
                  // start();
                     if (juego.getTurno()==0) {
+                        
                             setPlayerUno(opcione.getText());
                     }else{
                             setPlayerDos(opcione.getText());
@@ -415,27 +441,47 @@ public class Escenario
     public void setJuego(ParametrosJuego juego) {
         this.juego = juego;
     }
-    public void aleatoriedadDeTerrenos(){
+    public void aleatoriedadDeTerrenos(JPanel contenedor){
         Random random = new Random();
         int x = random.nextInt(filas);
         int y = random.nextInt(columnas);
-        
-        
+       Rectangle test= escenario[x][y].getBounds();
+        Casilla terreno = (Casilla)escenario[x][y];
+       
         if (random.nextInt(4)==0) {
-            escenario[x][y]=null;
-            escenario[x][y]= new Comodin(true, 100);
             
+            Comodin nuevo = new Comodin(true, 100);
+            terreno = (Comodin) nuevo;
         }else if (random.nextInt(3)==1) {
-            escenario[x][y]=null;
-            escenario[x][y]= new Lagos(true, 100);
+       
+            Lagos nuevo = new Lagos(true, 100);
+              terreno = (Lagos) nuevo;
         }else if (random.nextInt(4)==2) {
-            escenario[x][y]=null;
-            escenario[x][y]= new Mountain(true, 100);
+
+                Mountain nuevo = new Mountain(true, 100);
+                terreno = (Mountain) nuevo;
+        }else {
+            terreno = escenario[x][y];
         }
+       // escenario[x][y].setVisible(false);
+//terreno = new Normal(false, 0);//(false,0);
+        terreno.setPosicionX(x);
+        terreno.setPosicionY(y);
+        terreno.setBounds(test);
         
+        terreno.setVisible(true);
+
+        terreno.addMouseListener(click);
+        terreno.add(pop);
+        contenedor.remove(escenario[x][y]);
+        contenedor.add(terreno);
+
+        contenedor.setVisible(true);
+        contenedor.repaint();
+
     }
     
-    
+    private Casilla btn;
     private ParametrosJuego juego;
     private int filas;
     private int columnas;

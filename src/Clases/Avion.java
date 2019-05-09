@@ -30,6 +30,7 @@ public class Avion extends Vehiculo implements Serializable{
         this.velocidad = 10;
     }
 
+    @Override
     public int getId() {
         return id;
     }

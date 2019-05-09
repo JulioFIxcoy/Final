@@ -11,9 +11,19 @@ package Clases;
  */
 public class Bots {
     private int turnos;
+    private String imgPath;
 
     public Bots() {
         turnos = 3;
+        this.imgPath = "";
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
     
     

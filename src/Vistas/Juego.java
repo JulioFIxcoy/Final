@@ -7,10 +7,13 @@ package Vistas;
 
 import Clases.Escenario;
 import Clases.ParametrosJuego;
+import static Vistas.Principal.dos;
 import static Vistas.Principal.idioma;
+import static Vistas.Principal.uno;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.Serializable;
+import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
@@ -95,8 +98,12 @@ public class Juego extends javax.swing.JPanel implements Serializable {
             .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
     MouseListener click = new MouseListener(){
+        /**
+         * mouseClicked crea el tablero segun la etiqueta a la que se le dio click
+         * @param e 
+         */
         @Override
         public void mouseClicked(MouseEvent e) {
             //System.out.println(""+e.getSource());
@@ -108,6 +115,30 @@ public class Juego extends javax.swing.JPanel implements Serializable {
             game = new  ParametrosJuego(Integer.parseInt(Character.toString(size[0])),Integer.parseInt(Character.toString(size[2])), 1);
             nuevo = new Escenario(game.getFila(), game.getColumna());
             
+            Random r = new Random();
+            int fila =r.nextInt(game.getFila());
+            int columna = r.nextInt(game.getColumna());
+            
+            uno.setFila(fila);
+            uno.setColumna(columna);
+            
+            fila = r.nextInt(game.getFila());
+            while (fila==uno.getFila()) {
+                fila = r.nextInt(fila);
+            }
+            
+            columna = r.nextInt(columna);
+            while (columna==uno.getColumna()) {
+            columna = r.nextInt(columna);    
+            }
+            
+            dos.setFila(fila);
+            dos.setColumna(columna);
+            
+            game.setPlayerUno(uno);
+            game.setPlayerDos(dos);
+//          
+            
             nuevo.setJuego(game);
             nuevo.initMatrizEscenario(Juego.this);
             
@@ -116,7 +147,8 @@ public class Juego extends javax.swing.JPanel implements Serializable {
            
             Principal.setVisibleSave(true);
             opcionTablero.dispose();
-             
+            
+            
         }
         
         @Override

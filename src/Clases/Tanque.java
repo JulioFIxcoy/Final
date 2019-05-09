@@ -23,13 +23,24 @@ public class Tanque extends Vehiculo implements Serializable{
         super.setAtaque(10);
         super.setDefensa(6);
         super.setPunteria(60);
+        myId = id;
         id++;
+        
     }
 
+    public int getMyId() {
+        return myId;
+    }
+
+    public void setMyId(int myId) {
+        this.myId = myId;
+    }
+
+    @Override
     public  int getId() {
         return id;
     }
     
    private static int id=0;
-    
+   private int myId ;
 }

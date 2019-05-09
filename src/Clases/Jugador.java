@@ -29,7 +29,8 @@ public class Jugador implements Serializable{
     private int ganados;
     private int perdidos;
     private int rendido;
-     
+    private int kitGrande;
+    private int kitSmall;
    
     private Vehiculo vehiculoActual;
    
@@ -41,20 +42,33 @@ public class Jugador implements Serializable{
     private int columna;
     private int myId;
     private Bots bot;
-  
+    private String pathImg;
+    
     public Jugador(String nombre) {
+        
         usarVehiculo = 0;
         this.nombre = nombre;
         this.cantidadDeJuegos = 0;
-        this.id ++;
+      
+        
         System.out.println(id);
         init();
         givenIn = false;
-        
-       // vehiculoActual = vehiculo[usarVehiculo];
+       // this.pathImg = pathImg;
+      
     }
 
-    public Jugador() {
+    public String getPathImg() {
+        return pathImg;
+    }
+
+    public void setPathImg(String pathImg) {
+        this.pathImg = pathImg;
+    }
+    
+    public Jugador( ) {
+        
+       // this.nombre = pathImg;
         init();
     }
     
@@ -95,7 +109,8 @@ public class Jugador implements Serializable{
     }
     
     private void init(){
-        
+          this.id ++;
+        this.pathImg="";
         this.nivel = 1;
         
         this.rendido=0;
@@ -107,14 +122,30 @@ public class Jugador implements Serializable{
         this.experiencia = 1;
         this.contadorVehiculos = 3;
 //        this.vehiculo = new Vehiculo[4];
-        
-        
+        kitGrande = 0; 
+        kitSmall = 0;
         
         usarVehiculo = 0;
   //      this.vehiculoActual = vehiculo[usarVehiculo];
         myId =id;
-      
+        this.pathImg = pathImg;
                 
+    }
+
+    public int getKitGrande() {
+        return kitGrande;
+    }
+
+    public void setKitGrande(int kitGrande) {
+        this.kitGrande = kitGrande;
+    }
+
+    public int getKitSmall() {
+        return kitSmall;
+    }
+
+    public void setKitSmall(int kitSmall) {
+        this.kitSmall = kitSmall;
     }
     
     public int getMyId() {
@@ -310,7 +341,7 @@ public class Jugador implements Serializable{
      * metodo para usar en el reporte
      */
     public String dataGeneral() {
-        return    id+". "+nombre + ", cantidadDeJuegos: "  + ", juegos: " + juegos + ", ganados: " + ganados + ", perdidos: " + perdidos + ", rendido: " + rendido ;
+        return    id+". "+nombre + ", cantidadDeJuegos: "  + ", juegos: " + juegos + ", ganados: " + ganados + ", perdidos: " + perdidos + ", rendido: " + rendido+"pathinmg"+pathImg ;
     }
 //    public void insertarVehiculo(Vehiculo comprado){
 //        Manejador<Vehiculo> manejador = new Manejador<Vehiculo>();
@@ -322,7 +353,7 @@ public class Jugador implements Serializable{
 
     @Override
     public String toString() {
-        return   nombre + ", nivel: " + nivel + " Vida: "+vehiculoActual.getVida()+", experiencia:" + experiencia + ", Posicion:(" + (Fila+1) + "," + (columna+1)+")" ;
+        return  "img"+pathImg;
     }
     
     

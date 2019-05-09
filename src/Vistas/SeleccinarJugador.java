@@ -11,8 +11,11 @@ import static Vistas.Principal.idioma;
 import static Vistas.Principal.panelPrincipal;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -30,6 +33,7 @@ public class SeleccinarJugador extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, Principal.idioma.getProperty("selectP"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Comic Sans MS", 1, 12), new java.awt.Color(102, 102, 102))); // NOI18N
         listPlayer2.setVisible(false);
         addElementList1();
+        eventItem();
     }
 
     /**
@@ -44,12 +48,12 @@ public class SeleccinarJugador extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listPlayer1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        btnPlayer1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listPlayer2 = new javax.swing.JList<>();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        pc = new javax.swing.JButton();
+        btnPlayer2 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Seleccionar Jugador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Comic Sans MS", 1, 12), new java.awt.Color(102, 102, 102))); // NOI18N
 
@@ -57,12 +61,15 @@ public class SeleccinarJugador extends javax.swing.JPanel {
         jPanel1.setForeground(new java.awt.Color(102, 102, 102));
 
         listPlayer1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), null));
+        listPlayer1.setMaximumSize(new java.awt.Dimension(205, 231));
+        listPlayer1.setPreferredSize(new java.awt.Dimension(205, 231));
+        listPlayer1.setVerifyInputWhenFocusTarget(false);
         jScrollPane1.setViewportView(listPlayer1);
 
-        jButton1.setText(idioma.getProperty("sl"));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPlayer1.setText(idioma.getProperty("sl"));
+        btnPlayer1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPlayer1ActionPerformed(evt);
             }
         });
 
@@ -71,39 +78,41 @@ public class SeleccinarJugador extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(btnPlayer1)
+                .addContainerGap(70, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jButton1)
-                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnPlayer1)
                 .addGap(21, 21, 21))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, idioma.getProperty("p2"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Comic Sans MS", 1, 12), new java.awt.Color(102, 102, 102)));
 
         listPlayer2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(102, 102, 102), null));
+        listPlayer2.setMaximumSize(new java.awt.Dimension(205, 231));
+        listPlayer2.setPreferredSize(new java.awt.Dimension(205, 231));
         jScrollPane2.setViewportView(listPlayer2);
 
-        jButton2.setText(idioma.getProperty("pC"));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        pc.setText(idioma.getProperty("pC"));
+        pc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                pcActionPerformed(evt);
             }
         });
 
-        jButton3.setText(idioma.getProperty("sl"));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnPlayer2.setText(idioma.getProperty("sl"));
+        btnPlayer2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnPlayer2ActionPerformed(evt);
             }
         });
 
@@ -113,9 +122,9 @@ public class SeleccinarJugador extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jButton2)
+                .addComponent(pc)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnPlayer2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
@@ -125,11 +134,11 @@ public class SeleccinarJugador extends javax.swing.JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                .addComponent(jScrollPane2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(pc)
+                    .addComponent(btnPlayer2))
                 .addGap(23, 23, 23))
         );
 
@@ -153,12 +162,16 @@ public class SeleccinarJugador extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnPlayer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayer1ActionPerformed
+        ;
+        searchPlayer(listPlayer1.getSelectedIndex());
+    }//GEN-LAST:event_btnPlayer1ActionPerformed
+    public void searchPlayer(int index){
         if (listPlayer1.getSelectedIndex()!= -1) {
             
-            listPlayer1.getSelectedIndex();
+          //  listPlayer1.getSelectedIndex();
             RecuperarPlantilla<Jugador> recuperar = new RecuperarPlantilla<>();
-            File player = new File(Principal.mkdirPlayer+listPlayer1.getSelectedIndex()+".player");
+            File player = new File(Principal.mkdirPlayer+index+".player");
             Principal.uno = recuperar.recuperar(Principal.mkdirPlayer+listPlayer1.getSelectedIndex()+".player");
             listPlayer2.setVisible(true);
             listPlayer1.setVisible(false);
@@ -166,29 +179,52 @@ public class SeleccinarJugador extends javax.swing.JPanel {
         else{
             JOptionPane.showMessageDialog(null, "Debe Seleccionar Un Jugador", "Informacion", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
+    public void eventItem(){
+        listPlayer1.addMouseListener(new MouseAdapter() {
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+            public void mouseClicked(MouseEvent e){
+                 JList list = (JList)e.getSource(); 
+                 if (e.getClickCount() == 2) {
+                     int index = list.locationToIndex(e.getPoint()); 
+                     searchPlayer(index);
+                 }
+            }
+         });
+        listPlayer2.addMouseListener(new MouseAdapter() {
+                
+            public void mouseClicked(MouseEvent e){
+                 JList list = (JList)e.getSource(); 
+                 if (e.getClickCount() == 2) {
+                     int index = list.locationToIndex(e.getPoint()); 
+                     searchPlayerDos(index);
+                 }
+            }
+        });
+    }
+    private void btnPlayer2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayer2ActionPerformed
         // TODO add your handling code here:
-        
-        if (listPlayer1.getSelectedIndex()!= listPlayer2.getSelectedIndex() && listPlayer2.getSelectedIndex() != -1 ) {
+        int index = listPlayer2.getSelectedIndex();
+        searchPlayerDos(index);
+       
+    }//GEN-LAST:event_btnPlayer2ActionPerformed
+    public void searchPlayerDos(int index){
+         if (listPlayer1.getSelectedIndex()!= index && index != -1 ) {
             
-            listPlayer1.getSelectedIndex();
+            
             RecuperarPlantilla<Jugador> recuperar = new RecuperarPlantilla<>();
-            File player = new File(Principal.mkdirPlayer+listPlayer1.getSelectedIndex()+".player");
-            Principal.dos = recuperar.recuperar(Principal.mkdirPlayer+listPlayer1.getSelectedIndex()+".player");
+            Principal.dos = recuperar.recuperar(Principal.mkdirPlayer+index+".player");
              
             initGame();
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe Seleccionar Un Jugador", "Informacion", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }
+    private void pcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pcActionPerformed
         Jugador nuevo = new Jugador("PC-");
         nuevo.setNombre(nuevo.getNombre()+nuevo.getMyId());
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_pcActionPerformed
 public void initGame(){
      int componen = panelPrincipal.getComponents().length;
         for (Component component : panelPrincipal.getComponents()) {
@@ -197,7 +233,9 @@ public void initGame(){
                     if (component.getClass().getCanonicalName().equalsIgnoreCase("Vistas.Juego")) {
                         System.out.println("hay un juego en curso");
                         JOptionPane.showMessageDialog(null, "Hay Un Juego En Curso", "Informacion", JOptionPane.WARNING_MESSAGE);
-                        componen=-1;
+                        
+                        //componen=-1;
+                        break;
                     }else if (componen == 0){
                         JPanel nuevo = new Juego();
                          addPanel(nuevo);
@@ -235,14 +273,14 @@ public void addPanel(JPanel panel){
         listPlayer2.setListData(player);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnPlayer1;
+    private javax.swing.JButton btnPlayer2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> listPlayer1;
     private javax.swing.JList<String> listPlayer2;
+    private javax.swing.JButton pc;
     // End of variables declaration//GEN-END:variables
 }

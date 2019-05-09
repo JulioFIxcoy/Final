@@ -27,9 +27,18 @@ public class Normal extends TipoTerreno implements Serializable{
         Border margin = new EmptyBorder(5, 15, 5, 15);
         Border compound = new CompoundBorder(line, margin);
         setBorder(compound);
+        
+      //  setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/comodin2.jpg")));
     }
     public int getPosicionXX(){
         return super.getPosicionX();
     }
+
+    @Override
+    void setCasillaColor() {
+        System.out.println("noraml");
+
+    }
+    
     
 }

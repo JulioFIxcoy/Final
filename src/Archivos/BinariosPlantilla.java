@@ -34,8 +34,8 @@ public class BinariosPlantilla <T>{
 
              escribirObjeto = new ObjectOutputStream(new 
             FileOutputStream(path+nombre+extension));
-             System.out.println("file"+path+nombre+extension);
             escribirObjeto.writeObject(t);
+           
             escribirObjeto.close();
            
            

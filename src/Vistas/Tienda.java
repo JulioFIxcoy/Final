@@ -6,12 +6,14 @@
 package Vistas;
 
 import Archivos.BinariosPlantilla;
+import Archivos.RecuperarPlantilla;
 import Clases.Avion;
 import Clases.Jugador;
 import Clases.Tanque;
 import Clases.Vehiculo;
 import static Vistas.Principal.idioma;
 import java.io.File;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -24,6 +26,7 @@ public class Tienda extends javax.swing.JPanel {
      */
     public Tienda() {
         initComponents();
+        fileChooser.setVisible(false);
     }
 
     /**
@@ -38,6 +41,8 @@ public class Tienda extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        btnimg = new javax.swing.JButton();
+        fileChooser = new javax.swing.JFileChooser();
         lblFondo = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 0, 0));
@@ -55,32 +60,81 @@ public class Tienda extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, -1, -1));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, -1, -1));
+
+        btnimg.setText(idioma.getProperty("img"));
+        btnimg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnimgActionPerformed(evt);
+            }
+        });
+        add(btnimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 190, 120, -1));
+        add(fileChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 80, 510, -1));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/soldadoDuty.jpg"))); // NOI18N
         add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Jugador nuevo = new Jugador(txtNombre.getText());
+         nuevo = new Jugador(txtNombre.getText());
         File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getId()));
         carpeta.mkdir();
         String path = carpeta.getAbsolutePath()+File.separatorChar;
         BinariosPlantilla<Jugador> escribir = new BinariosPlantilla<>();
         escribir.writeObjectBin(nuevo, Principal.mkdirPlayer, String.valueOf(nuevo.getId()), ".player");
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnimgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnimgActionPerformed
+       fileChooser.setVisible(true);
+      //  FileNameExtensionFilter filtro = new FileNameExtensionFilter(idioma.getProperty("imagen"),".jpg" );
+       // fileChooser.setFileFilter(filtro);
+        fileChooser.showOpenDialog(null);
+        File imgChoose = fileChooser.getSelectedFile();
+        String pathGame = imgChoose.getAbsolutePath();
+        System.out.println(pathGame);
+        nuevo.setPathImg(pathGame);
+        System.out.println("name"+nuevo.dataGeneral());
+        
+        File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getId()));
+        carpeta.mkdir();
+        String path = carpeta.getAbsolutePath()+File.separatorChar;
+        BinariosPlantilla<Jugador> escribir = new BinariosPlantilla<>();
+        escribir.writeObjectBin(nuevo, Principal.mkdirPlayer, String.valueOf(nuevo.getId()), ".player");
+        vehiculosUsuario();
+        
+    }//GEN-LAST:event_btnimgActionPerformed
     public void vehiculosUsuario(){
+        vehiculo = new Vehiculo[3];
         this.vehiculo[0] = new Tanque("T-34-76");
         this.vehiculo[1]= new Avion("Sukhoi Su-27");
         this.vehiculo[2]= new Tanque("IS-2");
+        
+        BinariosPlantilla<Vehiculo> enDisco = new BinariosPlantilla<>();
+        int i =0;
+        for (Vehiculo vehiculo1 : vehiculo) {
+          String p = Principal.mkdirPlayerPlayer+nuevo.getMyId()+File.separatorChar;
+            if (vehiculo1 instanceof Tanque) {
+                
+                
+                enDisco.writeObjectBin(vehiculo1,p, String.valueOf(((Tanque) vehiculo1).getMyId()),".tank");
+                System.out.println(i);
+                i++;
+            }else{
+                enDisco.writeObjectBin(vehiculo1, p, String.valueOf(vehiculo1.getId()),".air");
+            }
+            
+          
+        }
     }
     
     
     private Vehiculo[] vehiculo;
     
     
-    
+    private Jugador nuevo ;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnimg;
+    private javax.swing.JFileChooser fileChooser;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblFondo;

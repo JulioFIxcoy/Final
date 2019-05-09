@@ -304,18 +304,17 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSaveGameActionPerformed
 
     private void itemContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemContinueActionPerformed
-//        fileChooser.setVisible(true);
-//        FileNameExtensionFilter filtro = new FileNameExtensionFilter(idioma.getProperty("juego"),"game" );
-//        fileChooser.setFileFilter(filtro);
-//        fileChooser.showOpenDialog(null);
-//        File fileGame = fileChooser.getSelectedFile();
-//        String pathGame = fileGame.getAbsolutePath();
-//        RecuperarPlantilla<Juego> continuar = new RecuperarPlantilla<Juego>();
-//        Juego anterior = continuar.recuperar(pathGame);
-//        addPanel(anterior);
+        fileChooser.setVisible(true);
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter(idioma.getProperty("juego"),".game" );
+        fileChooser.setFileFilter(filtro);
+        fileChooser.showOpenDialog(null);
+        File fileGame = fileChooser.getSelectedFile();
+        String pathGame = fileGame.getAbsolutePath();
+        RecuperarPlantilla<Juego> continuar = new RecuperarPlantilla<Juego>();
+        Juego anterior = continuar.recuperar(pathGame);
+        addPanel(anterior);
 
-        Tienda venta = new Tienda();
-        addPanel(venta);
+       
                 
     }//GEN-LAST:event_itemContinueActionPerformed
 
@@ -504,8 +503,6 @@ try {
             directorio.mkdir(); 
             return directorio.getAbsoluteFile().getAbsolutePath()+File.separatorChar;
         }
-        System.out.println(File.separatorChar);
-        System.out.println(pathDirectorio+directorio.getAbsoluteFile().getAbsolutePath()+File.separatorChar);
         return directorio.getAbsoluteFile().getAbsolutePath()+File.separatorChar;
     }
     public void  crearCarpetas(){

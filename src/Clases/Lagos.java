@@ -27,11 +27,14 @@ public class Lagos extends TipoTerreno implements Serializable{
         Border margin = new EmptyBorder(5, 15, 5, 15);
         Border compound = new CompoundBorder(line, margin);
         setBorder(compound);
+        
+        
     }
 
     @Override
     void setCasillaColor() {
-       
+       setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agua.jpeg")));
+        System.out.println("lago");
     }
 
     @Override

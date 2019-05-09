@@ -8,6 +8,7 @@ package Clases;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
+import java.util.Random;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -27,11 +28,19 @@ public class Mountain extends TipoTerreno implements Serializable{
         Border margin = new EmptyBorder(5, 15, 5, 15);
         Border compound = new CompoundBorder(line, margin);
         setBorder(compound);
+        
+       
     }
 
     @Override
     void setCasillaColor() {
-       
+         Random r = new Random();
+        if (r.nextInt(10)<5) {
+            setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mont.jpg")));
+        }else {
+            setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/monta.jpg")));
+        }
+        System.out.println("monta;a");
     }
 
     @Override

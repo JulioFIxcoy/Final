@@ -12,7 +12,7 @@ import java.util.Random;
  *
  * @author Julio
  */
-public class Vehiculo implements Serializable{
+public abstract class Vehiculo implements Serializable{
     private int nivel;
     private String imgPath;
     private int vida;
@@ -176,6 +176,6 @@ public class Vehiculo implements Serializable{
         this.posicionY = posicionY;
     }
     
-    
+    public abstract int getId();
     
 }

@@ -6,8 +6,11 @@
 package Clases;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -26,11 +29,21 @@ public class Comodin extends Casilla implements Serializable{
         Border line = new LineBorder(Color.BLACK);
         Border margin = new EmptyBorder(5, 15, 5, 15);
         Border compound = new CompoundBorder(line, margin);
+        
+        
         setBorder(compound);
+        
+        
+            
+      
     }
 
     @Override
     void setCasillaColor() {
+        setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/comodin2.jpg")));
+        System.out.println("comodin");
+        
+        
         
     }
 
