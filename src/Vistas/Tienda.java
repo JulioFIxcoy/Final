@@ -12,7 +12,11 @@ import Clases.Jugador;
 import Clases.Tanque;
 import Clases.Vehiculo;
 import static Vistas.Principal.idioma;
+import java.awt.Image;
 import java.io.File;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -85,17 +89,19 @@ public class Tienda extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnimgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnimgActionPerformed
-       fileChooser.setVisible(true);
-      //  FileNameExtensionFilter filtro = new FileNameExtensionFilter(idioma.getProperty("imagen"),".jpg" );
-       // fileChooser.setFileFilter(filtro);
-        fileChooser.showOpenDialog(null);
-        File imgChoose = fileChooser.getSelectedFile();
-        String pathGame = imgChoose.getAbsolutePath();
-        System.out.println(pathGame);
-        nuevo.setPathImg(pathGame);
+//       fileChooser.setVisible(true);
+//      //  FileNameExtensionFilter filtro = new FileNameExtensionFilter(idioma.getProperty("imagen"),".jpg" );
+//       // fileChooser.setFileFilter(filtro);
+//        fileChooser.showOpenDialog(null);
+//        File imgChoose = fileChooser.getSelectedFile();
+//        String pathGame = imgChoose.getAbsolutePath();
+//        System.out.println(pathGame);
+//        nuevo.setPathImg(pathGame);
+
+    addImg();
         System.out.println("name"+nuevo.dataGeneral());
         
-        File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getId()));
+        File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getMyId()));
         carpeta.mkdir();
         String path = carpeta.getAbsolutePath()+File.separatorChar;
         BinariosPlantilla<Jugador> escribir = new BinariosPlantilla<>();
@@ -126,8 +132,29 @@ public class Tienda extends javax.swing.JPanel {
           
         }
     }
+    public void addImg(){
+        int resul;
+        fileChooser.setVisible(true);
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("fondo imagen", "jpg","png","jpeg");
+        fileChooser.setFileFilter(filtro);
+        resul = fileChooser.showOpenDialog(null);
+        
+        if (JFileChooser.APPROVE_OPTION == resul) {
+            
+            file = fileChooser.getSelectedFile();
+            
+            try {
+                ImageIcon icon = new ImageIcon(file.toString());
+                 Icon icono = new ImageIcon(icon.getImage().getScaledInstance(100 , 75, Image.SCALE_DEFAULT));
+                nuevo.setIcon(icono);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+        }
+    }
     
-    
+    private File file;
     private Vehiculo[] vehiculo;
     
     

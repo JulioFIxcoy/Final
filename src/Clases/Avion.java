@@ -16,6 +16,7 @@ import java.io.Serializable;
 public class Avion extends Vehiculo implements Serializable{
     private int velocidad;
     private static int id=0;
+    private int myId;
     /**
      * Constructor que hace referencia al constructor padre
      * @param nombre 
@@ -26,10 +27,19 @@ public class Avion extends Vehiculo implements Serializable{
         super.setAtaque(7);
         super.setDefensa(3);
         super.setPunteria(70);
+        myId=id;
         id++;
         this.velocidad = 10;
     }
 
+    public int getMyId() {
+        return myId;
+    }
+
+    public void setMyId(int myId) {
+        this.myId = myId;
+    }
+    
     @Override
     public int getId() {
         return id;

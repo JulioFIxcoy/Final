@@ -5,6 +5,8 @@
  */
 package Clases;
 
+import Archivos.BinariosPlantilla;
+import Vistas.Principal;
 import java.io.Serializable;
 
 /**
@@ -39,6 +41,11 @@ public class Tanque extends Vehiculo implements Serializable{
     @Override
     public  int getId() {
         return id;
+    }
+    public void writeTanke(){
+        BinariosPlantilla<Vehiculo> write = new BinariosPlantilla<>();
+       //Tanque tanque=(Tanque)nuevo;
+        write.writeObjectBin(Tanque.this, Principal.mkdirTienda, String.valueOf(getMyId()), ".tank");
     }
     
    private static int id=0;

@@ -8,6 +8,8 @@ package Clases;
 import java.io.Serializable;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -31,6 +33,8 @@ public class Jugador implements Serializable{
     private int rendido;
     private int kitGrande;
     private int kitSmall;
+    
+    private Icon icon;
    
     private Vehiculo vehiculoActual;
    
@@ -57,7 +61,7 @@ public class Jugador implements Serializable{
        // this.pathImg = pathImg;
       
     }
-
+    
     public String getPathImg() {
         return pathImg;
     }
@@ -109,6 +113,8 @@ public class Jugador implements Serializable{
     }
     
     private void init(){
+        
+        icon = null;
           this.id ++;
         this.pathImg="";
         this.nivel = 1;
@@ -132,6 +138,14 @@ public class Jugador implements Serializable{
                 
     }
 
+    public Icon getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Icon icon) {
+        this.icon = icon;
+    }
+    
     public int getKitGrande() {
         return kitGrande;
     }

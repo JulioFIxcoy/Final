@@ -8,6 +8,8 @@ package Clases;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import static java.awt.image.ImageObserver.HEIGHT;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.io.Serializable;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;

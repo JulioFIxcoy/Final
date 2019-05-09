@@ -26,7 +26,7 @@ public abstract class Casilla extends JButton implements ActionListener,Serializ
         this.intDestruible = intDestruible;
        
        
-      setCasillaColor();
+    //  setCasillaColor();
     }
     
 
@@ -79,7 +79,8 @@ public abstract class Casilla extends JButton implements ActionListener,Serializ
       //  setIcon(new javax.swing.ImageIcon(getClass().getResource(jugador.getVehiculoActual().getImgPath())));
         System.out.println(jugador.toString());
     //  setIcon(new javax.swing.ImageIcon(getClass().getResource(jugador.getPathImg())));
-        setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/comodin2.jpg")));
+        //setIcon(new javax.swing.ImageIcon(getClass().getResource(jugador.getPathImg())));
+        setIcon(jugador.getIcon());
       repaint();
     }
     abstract void setCasillaColor();

@@ -468,7 +468,8 @@ public class Escenario
         terreno.setPosicionX(x);
         terreno.setPosicionY(y);
         terreno.setBounds(test);
-        
+        terreno.setCasillaColor();
+                
         terreno.setVisible(true);
 
         terreno.addMouseListener(click);

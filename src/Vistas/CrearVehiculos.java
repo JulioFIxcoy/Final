@@ -8,10 +8,16 @@ package Vistas;
 import Archivos.BinariosPlantilla;
 import Clases.Avion;
 import Clases.Tanque;
+import Clases.Vehiculo;
 import static Vistas.Principal.idioma;
 import static Vistas.Principal.mkdirAir;
 import static Vistas.Principal.mkdirTank;
+import java.awt.Image;
 import java.io.File;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -39,6 +45,8 @@ public class CrearVehiculos extends javax.swing.JPanel {
         tanque = new javax.swing.JButton();
         avion = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        fileChooser = new javax.swing.JFileChooser();
         lblFondo = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -70,6 +78,15 @@ public class CrearVehiculos extends javax.swing.JPanel {
         });
         add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 54, 220, 50));
 
+        jButton1.setText(idioma.getProperty("placeImage"));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 610, 40));
+        add(fileChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, -1, -1));
+
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/at.jpg"))); // NOI18N
         add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 570));
     }// </editor-fold>//GEN-END:initComponents
@@ -80,22 +97,60 @@ public class CrearVehiculos extends javax.swing.JPanel {
 
     private void tanqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanqueActionPerformed
         // TODO add your handling code here:
-        Tanque nuevo = new Tanque(txtNombre.getText());
-        BinariosPlantilla<Tanque> write = new BinariosPlantilla<>();
-        write.writeObjectBin(nuevo, Principal.mkdirTienda, String.valueOf(nuevo.getId()), ".tank");
+        nuevo = new Tanque(txtNombre.getText());
+        BinariosPlantilla<Vehiculo> write = new BinariosPlantilla<>();
+       Tanque tanque=(Tanque)nuevo;
+        write.writeObjectBin(nuevo, Principal.mkdirTienda, String.valueOf(tanque.getMyId()), ".tank");
     }//GEN-LAST:event_tanqueActionPerformed
 
     private void avionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avionActionPerformed
         // TODO add your handling code here:
-        Avion nuevo = new Avion(txtNombre.getText());
-        BinariosPlantilla<Avion> write = new BinariosPlantilla<>();
-        write.writeObjectBin(nuevo, Principal.mkdirTienda, String.valueOf(nuevo.getId()), ".air");
+         nuevo = new Avion(txtNombre.getText());
+        BinariosPlantilla<Vehiculo> write = new BinariosPlantilla<>();
+       Avion avion=(Avion)nuevo;
+        write.writeObjectBin(nuevo, Principal.mkdirTienda, String.valueOf(avion.getMyId()), ".air");
         
     }//GEN-LAST:event_avionActionPerformed
 
-
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        addImg();
+         BinariosPlantilla<Vehiculo> write = new BinariosPlantilla<>();
+        if (nuevo instanceof Tanque) {
+             Tanque tanque=(Tanque)nuevo;
+            write.writeObjectBin(nuevo, Principal.mkdirTienda, String.valueOf(tanque.getMyId()), ".tank");
+        }else{
+             Avion avion=(Avion)nuevo;
+            write.writeObjectBin(nuevo, Principal.mkdirTienda, String.valueOf(avion.getMyId()), ".air");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+     public void addImg(){
+         File file;
+         int resul;
+        fileChooser.setVisible(true);
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("fondo imagen", "jpg","png","jpeg");
+        fileChooser.setFileFilter(filtro);
+        resul = fileChooser.showOpenDialog(null);
+        
+        if (JFileChooser.APPROVE_OPTION == resul) {
+            
+            file = fileChooser.getSelectedFile();
+            
+            try {
+                ImageIcon icon = new ImageIcon(file.toString());
+                 Icon icono = new ImageIcon(icon.getImage().getScaledInstance(100 , 75, Image.SCALE_DEFAULT));
+                nuevo.setIcon(icono);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+        }
+    }
+    
+    private Vehiculo nuevo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton avion;
+    private javax.swing.JFileChooser fileChooser;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JButton tanque;

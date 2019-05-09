@@ -7,6 +7,7 @@ package Clases;
 
 import java.io.Serializable;
 import java.util.Random;
+import javax.swing.Icon;
 
 /**
  *
@@ -26,6 +27,9 @@ public abstract class Vehiculo implements Serializable{
     private int posicionX;
     private int posicionY;
     private double precio;
+    
+    private Icon icon;
+    
     public Vehiculo(String nombre) {
         
        this.nombre = nombre;
@@ -41,7 +45,17 @@ public abstract class Vehiculo implements Serializable{
       precio = 25;
       this.experiencia=1;
      arma = new Arma(r.nextInt(100), "Basica");
+     icon = null;
     }
+
+    public Icon getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Icon icon) {
+        this.icon = icon;
+    }
+    
 
     public double getPrecio() {
         return precio;

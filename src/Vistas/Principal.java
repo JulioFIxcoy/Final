@@ -523,7 +523,7 @@ try {
     static String conf;
     static String mkdirPlayer;
     static String mkdirVehiculos;
-    static String mkdirTienda;
+    public static String mkdirTienda;
     static String mkdirReportes;
     static String mkdirSave;
     static String mkdirTank;
