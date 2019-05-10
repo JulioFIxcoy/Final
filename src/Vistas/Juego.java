@@ -91,11 +91,11 @@ public class Juego extends javax.swing.JPanel implements Serializable {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 1266, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 763, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     
@@ -121,6 +121,8 @@ public class Juego extends javax.swing.JPanel implements Serializable {
             
             uno.setFila(fila);
             uno.setColumna(columna);
+            uno.getCurrentVehicle().setPosicionX(fila);
+            uno.getCurrentVehicle().setPosicionY(columna);
             
             fila = r.nextInt(game.getFila());
             while (fila==uno.getFila()) {
@@ -134,7 +136,8 @@ public class Juego extends javax.swing.JPanel implements Serializable {
             
             dos.setFila(fila);
             dos.setColumna(columna);
-            
+            dos.getCurrentVehicle().setPosicionX(fila);
+            dos.getCurrentVehicle().setPosicionY(columna);
             game.setPlayerUno(uno);
             game.setPlayerDos(dos);
 //          
@@ -142,6 +145,8 @@ public class Juego extends javax.swing.JPanel implements Serializable {
             nuevo.setJuego(game);
             nuevo.initMatrizEscenario(Juego.this);
             
+            nuevo.getCasilla(uno.getCurrentVehicle().getPosicionX(), uno.getCurrentVehicle().getPosicionY()).imgJugador(uno);
+            nuevo.getCasilla(dos.getCurrentVehicle().getPosicionX(), dos.getCurrentVehicle().getPosicionY()).imgJugador(dos);
             repaint();
            // Juego.this.repaint();
            

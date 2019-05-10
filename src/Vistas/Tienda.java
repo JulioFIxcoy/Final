@@ -81,11 +81,11 @@ public class Tienda extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          nuevo = new Jugador(txtNombre.getText());
-        File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getId()));
+        File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getMyId()));
         carpeta.mkdir();
         String path = carpeta.getAbsolutePath()+File.separatorChar;
         BinariosPlantilla<Jugador> escribir = new BinariosPlantilla<>();
-        escribir.writeObjectBin(nuevo, Principal.mkdirPlayer, String.valueOf(nuevo.getId()), ".player");
+        escribir.writeObjectBin(nuevo, Principal.mkdirPlayer, String.valueOf(nuevo.getMyId()), ".player");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnimgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnimgActionPerformed
@@ -98,15 +98,18 @@ public class Tienda extends javax.swing.JPanel {
 //        System.out.println(pathGame);
 //        nuevo.setPathImg(pathGame);
 
-    addImg();
+         addImg();
         System.out.println("name"+nuevo.dataGeneral());
         
         File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getMyId()));
         carpeta.mkdir();
         String path = carpeta.getAbsolutePath()+File.separatorChar;
+        
+        vehiculosUsuario();
+        
         BinariosPlantilla<Jugador> escribir = new BinariosPlantilla<>();
         escribir.writeObjectBin(nuevo, Principal.mkdirPlayer, String.valueOf(nuevo.getId()), ".player");
-        vehiculosUsuario();
+       
         
     }//GEN-LAST:event_btnimgActionPerformed
     public void vehiculosUsuario(){
@@ -116,21 +119,34 @@ public class Tienda extends javax.swing.JPanel {
         this.vehiculo[2]= new Tanque("IS-2");
         
         BinariosPlantilla<Vehiculo> enDisco = new BinariosPlantilla<>();
-        int i =0;
+        
         for (Vehiculo vehiculo1 : vehiculo) {
           String p = Principal.mkdirPlayerPlayer+nuevo.getMyId()+File.separatorChar;
             if (vehiculo1 instanceof Tanque) {
                 
-                
+               try {
+                 ImageIcon icon = new ImageIcon(getClass().getResource("/img/tank.jpg"));
+                 Icon icono = new ImageIcon(icon.getImage().getScaledInstance(100 , 75, Image.SCALE_DEFAULT));
+                 vehiculo1.setIcon(icono);
+               }catch(Exception e){
+                   e.printStackTrace();
+               }
                 enDisco.writeObjectBin(vehiculo1,p, String.valueOf(((Tanque) vehiculo1).getMyId()),".tank");
-                System.out.println(i);
-                i++;
             }else{
-                enDisco.writeObjectBin(vehiculo1, p, String.valueOf(vehiculo1.getId()),".air");
+                 try {
+                ImageIcon icon = new ImageIcon(getClass().getResource("/img/avion1.jpg"));
+                 Icon icono = new ImageIcon(icon.getImage().getScaledInstance(100 , 75, Image.SCALE_DEFAULT));
+               vehiculo1.setIcon(icono);
+               }catch(Exception e){
+                   e.printStackTrace();
+               }
+                //vehiculo1.setIconDefault(false);
+                enDisco.writeObjectBin(vehiculo1, p, String.valueOf(vehiculo1.getMyId()),".air");
             }
             
           
         }
+        nuevo.setCurrentVehicle(vehiculo[0]);
     }
     public void addImg(){
         int resul;

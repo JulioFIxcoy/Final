@@ -5,9 +5,11 @@
  */
 package Clases;
 
+import java.awt.Image;
 import java.io.Serializable;
 import java.util.Random;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -27,25 +29,28 @@ public abstract class Vehiculo implements Serializable{
     private int posicionX;
     private int posicionY;
     private double precio;
+    private int myId;
     
     private Icon icon;
     
     public Vehiculo(String nombre) {
         
-       this.nombre = nombre;
-      enBatalla = false; 
-       this.nivel = 1;
+        this.nombre = nombre;
+        enBatalla = false; 
+        this.nivel = 1;
         this.imgPath = "";
         this.vida = 100;
         this.estado = true;
         this.cantEnemys = 0;
         this.meDerrota = 0;
         Random r = new Random();
-      int rand = r.nextInt(100);
-      precio = 25;
-      this.experiencia=1;
-     arma = new Arma(r.nextInt(100), "Basica");
-     icon = null;
+        int rand = r.nextInt(100);
+        precio = 25;
+        this.experiencia=1;
+        arma = new Arma(r.nextInt(25), "Basica");
+        
+        ataque = rand + arma.getDanger();
+
     }
 
     public Icon getIcon() {
@@ -188,6 +193,36 @@ public abstract class Vehiculo implements Serializable{
 
     public void setPosicionY(int posicionY) {
         this.posicionY = posicionY;
+    }
+    public void moveVehicle(int x, int y){
+        Random r = new Random();
+      
+        int xx = posicionX;
+        int yy = posicionY;
+        
+        while (xx == posicionX || yy == posicionY) {
+            
+            xx = r.nextInt(x);
+            yy = r.nextInt(y);
+            System.out.println(xx+"while,"+yy+"hola");
+        }
+        posicionX = xx;
+        posicionY = yy;
+        System.out.println(posicionX+""+posicionY);
+       
+        
+    }
+    public int attack(){
+        Random r = new Random();
+        return r.nextInt(ataque);
+    }
+
+    public int getMyId() {
+        return myId;
+    }
+
+    public void setMyId(int myId) {
+        this.myId = myId;
     }
     
     public abstract int getId();

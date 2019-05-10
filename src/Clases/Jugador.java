@@ -36,7 +36,7 @@ public class Jugador implements Serializable{
     
     private Icon icon;
    
-    private Vehiculo vehiculoActual;
+    private Vehiculo currentVehicle;
    
     private boolean givenIn;//rendirse
     //private Secciones posicionActual;
@@ -104,12 +104,12 @@ public class Jugador implements Serializable{
         this.givenIn = givenIn;
     }
     
-    public Vehiculo getVehiculoActual() {
-        return vehiculoActual;
+    public Vehiculo getCurrentVehicle() {
+        return currentVehicle;
     }
 
-    public void setVehiculoActual(Vehiculo vehiculoActual) {
-        this.vehiculoActual = vehiculoActual;
+    public void setCurrentVehicle(Vehiculo currentVehicle) {
+        this.currentVehicle = currentVehicle;
     }
     
     private void init(){
@@ -132,7 +132,7 @@ public class Jugador implements Serializable{
         kitSmall = 0;
         
         usarVehiculo = 0;
-  //      this.vehiculoActual = vehiculo[usarVehiculo];
+  //      this.currentVehicle = vehiculo[usarVehiculo];
         myId =id;
         this.pathImg = pathImg;
                 
@@ -312,7 +312,7 @@ public class Jugador implements Serializable{
 //                System.out.println("Ingrese Un Numero dentro del rango de 1 a"+(vehiculo.length));
 //                 usarVehiculo = scanner.nextInt()-1;
 //            }
-//            vehiculoActual = vehiculo[usarVehiculo];
+//            currentVehicle = vehiculo[usarVehiculo];
 //            System.out.println("El Vehiculo ha sido reemplazado exitosamente");//*****************************************************colocar dentro de un marco***************
 //            
 //        }

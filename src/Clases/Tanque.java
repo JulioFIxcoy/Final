@@ -26,6 +26,7 @@ public class Tanque extends Vehiculo implements Serializable{
         super.setDefensa(6);
         super.setPunteria(60);
         myId = id;
+        super.setMyId(myId);
         id++;
         
     }

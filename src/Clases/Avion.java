@@ -28,6 +28,7 @@ public class Avion extends Vehiculo implements Serializable{
         super.setDefensa(3);
         super.setPunteria(70);
         myId=id;
+        super.setMyId(myId);
         id++;
         this.velocidad = 10;
     }

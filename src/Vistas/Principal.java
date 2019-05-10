@@ -519,7 +519,7 @@ try {
         mkdirAir = carpeta(mkdirVehiculos+"AirPlane");
         mkdirPlayerPlayer = carpeta(mkdirPlayer+"Player");
     }
-    static String mkdirPlayerPlayer;
+    public static String mkdirPlayerPlayer;
     static String conf;
     static String mkdirPlayer;
     static String mkdirVehiculos;

@@ -41,6 +41,8 @@ public class BinariosPlantilla <T>{
            
        } catch (IOException ioe) {
             System.out.println("Binarios Plantilla"+path);
+            ioe.getLocalizedMessage();
+                    System.out.println("ioe.getLocalizedMessage() = " + ioe.getLocalizedMessage());
            ioe.printStackTrace();
        }finally{
             try {

@@ -5,6 +5,7 @@
  */
 package Clases;
 
+import static Vistas.Principal.uno;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 import javax.swing.JButton;
@@ -33,7 +34,7 @@ public abstract class Casilla extends JButton implements ActionListener,Serializ
    
 
     
-    public Jugador getJugador() {
+    public Jugador getPlayer() {
         return jugador;
     }
 
@@ -75,19 +76,28 @@ public abstract class Casilla extends JButton implements ActionListener,Serializ
     public void imgBot(){
         setIcon(new javax.swing.ImageIcon(getClass().getResource(jugador.getBot().getImgPath())));
     }
-    public void imgJugador(){
-      //  setIcon(new javax.swing.ImageIcon(getClass().getResource(jugador.getVehiculoActual().getImgPath())));
-        System.out.println(jugador.toString());
-    //  setIcon(new javax.swing.ImageIcon(getClass().getResource(jugador.getPathImg())));
-        //setIcon(new javax.swing.ImageIcon(getClass().getResource(jugador.getPathImg())));
-        setIcon(jugador.getIcon());
+   public void iconDefault(){
+       setIcon(null);
+   }
+    public void imgJugador(Jugador player){
+        setIcon(player.getCurrentVehicle().getIcon());
+        setText(player.getCurrentVehicle().getNombre());
       repaint();
     }
+
+    public Bots getBot() {
+        return bot;
+    }
+
+    public void setBot(Bots bot) {
+        this.bot = bot;
+    }
+    
     abstract void setCasillaColor();
     
    
 
-
+private Bots bot;
 private boolean destruible;
 private int intDestruible;
 private int posicionX,posicionY;
