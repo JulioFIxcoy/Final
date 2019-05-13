@@ -45,6 +45,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 
 /**
@@ -412,11 +413,12 @@ public class Escenario
                    nueva.setSize(250, 100);
                    JButton btn = new JButton("Aceptar");
                    btn.setSize(30, 25);
-                        test.setLayout(new GridLayout());
+                        test.setLayout(new GridLayout(2, 1));
                         test.add(new JScrollPane(nueva),BorderLayout.NORTH);
                         test.setSize(350, 250);
                         test.setLocationRelativeTo(null);
                         test.add(btn,BorderLayout.SOUTH);
+                        test.setUndecorated(true);
                         test.setVisible(true);
                         
                     btn.addActionListener(new ActionListener() {
@@ -446,6 +448,7 @@ public class Escenario
                                 
                                 
                                 JOptionPane.showMessageDialog(null, idioma.getProperty("cambiarVehiculoExitoso"), idioma.getProperty("inf"), JOptionPane.INFORMATION_MESSAGE);
+                                test.dispose();
                         }
                     });
            // selectedItem(nueva, inTurn,forTable);

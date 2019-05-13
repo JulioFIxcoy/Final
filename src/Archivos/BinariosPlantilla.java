@@ -29,14 +29,15 @@ public class BinariosPlantilla <T>{
      * @param extension ...
      */
     public void writeObjectBin(T t, String path,String nombre,String extension){
-        ObjectOutputStream escribirObjeto = null;
+        ObjectOutputStream writeObject = null;
         try {
 
-             escribirObjeto = new ObjectOutputStream(new 
+             writeObject = new ObjectOutputStream(new 
             FileOutputStream(path+nombre+extension));
-            escribirObjeto.writeObject(t);
+             
+            writeObject.writeObject(t);
            
-            escribirObjeto.close();
+            writeObject.close();
            
            
        } catch (IOException ioe) {
@@ -46,7 +47,7 @@ public class BinariosPlantilla <T>{
            ioe.printStackTrace();
        }finally{
             try {
-                escribirObjeto.close();
+                writeObject.close();
             } catch (IOException ex) {
                 Logger.getLogger(BinariosPlantilla.class.getName()).log(Level.SEVERE, null, ex);
             }

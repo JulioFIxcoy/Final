@@ -248,24 +248,11 @@ public class Principal extends javax.swing.JFrame {
 
     private void itemJuegoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemJuegoNuevoActionPerformed
 
-         SeleccinarJugador j = new SeleccinarJugador();
-        addPanel(j);
 
-//       int componen = panelPrincipal.getComponents().length;
-//        for (Component component : panelPrincipal.getComponents()) {
-//                    componen--;
-//                    System.out.println(component.getClass().getCanonicalName());
-//                    if (component.getClass().getCanonicalName().equalsIgnoreCase("Vistas.Juego")) {
-//                        System.out.println("hay un juego en curso");
-//                        JOptionPane.showMessageDialog(null, "Hay Un Juego En Curso", "Informacion", JOptionPane.WARNING_MESSAGE);
-//                        componen=-1;
-//                    }else if (componen == 0){
-//                        JPanel nuevo = new Juego();
-//                         addPanel(nuevo);
-//                   //      nuevo.repaint();
-//                         //panelPrincipal.repaint();
-//                    }
-//        }
+           SeleccinarJugador j = new SeleccinarJugador();
+        addPanel(j);
+      
+
     }//GEN-LAST:event_itemJuegoNuevoActionPerformed
 
     private void itemReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemReportsActionPerformed
@@ -355,10 +342,23 @@ public void addPanel(JPanel panel){
         panel.setSize(panelPrincipal.getWidth() , 730 );
         panel.setLocation(0,0);
        
-        panelPrincipal.removeAll();
-        panelPrincipal.add(panel, BorderLayout.CENTER);
-        panelPrincipal.revalidate();
-        panelPrincipal.repaint();
+        
+       int componen = panelPrincipal.getComponents().length;
+        for (Component component : panelPrincipal.getComponents()) {
+                    componen--;
+                    System.out.println(component.getClass().getCanonicalName());
+                    if (component.getClass().getCanonicalName().equalsIgnoreCase("Vistas.Juego")) {
+                        System.out.println("hay un juego en curso");
+                        JOptionPane.showMessageDialog(null, "Hay Un Juego En Curso", "Informacion", JOptionPane.WARNING_MESSAGE);
+                        componen=-1;
+                    }else if (componen == 0){
+                        panelPrincipal.removeAll();
+                        panelPrincipal.add(panel, BorderLayout.CENTER);
+                        panelPrincipal.revalidate();
+                        panelPrincipal.repaint();
+                    }
+        }
+        
 }
 public static void setVisibleSave(boolean visible){
     itemSaveGame.setVisible(visible);
