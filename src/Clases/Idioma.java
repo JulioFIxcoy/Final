@@ -16,7 +16,11 @@ import java.util.Properties;
 public class Idioma extends Properties implements Serializable{
 
     private static final long serialVersionUID = 1L;
-
+/**
+ * estable el archivo que va a leer 
+ * 
+ * @param idioma 
+ */
     public Idioma(String idioma){
 
         //Modificar si quieres añadir mas idiomas
@@ -33,7 +37,10 @@ public class Idioma extends Properties implements Serializable{
 	   	}
 
     }
-
+/**
+ * busca el texto que se envia en el archivo que se eligio al instanciar la clase
+ * @param idioma 
+ */
     private void getProperties(String idioma) {
         try {
             this.load( getClass().getResourceAsStream(idioma) );

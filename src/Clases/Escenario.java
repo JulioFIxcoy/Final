@@ -90,7 +90,10 @@ public class Escenario
         
        
     }
-    
+    /**
+     * personaliza las opciones del popMenu
+     * @param item 
+     */
     
     private void customBtn(JMenuItem[] item){
             Border line = new LineBorder(Color.DARK_GRAY);

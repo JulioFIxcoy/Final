@@ -31,6 +31,9 @@ public class Mountain extends TipoTerreno implements Serializable{
         
        
     }
+    /**
+     * establece una imagen para el vehiculo
+     */
 
     @Override
     void setCasillaColor() {

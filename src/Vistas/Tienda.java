@@ -45,7 +45,6 @@ public class Tienda extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        btnimg = new javax.swing.JButton();
         fileChooser = new javax.swing.JFileChooser();
         lblFondo = new javax.swing.JLabel();
 
@@ -64,15 +63,7 @@ public class Tienda extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, -1, -1));
-
-        btnimg.setText(idioma.getProperty("img"));
-        btnimg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnimgActionPerformed(evt);
-            }
-        });
-        add(btnimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 190, 120, -1));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 300, 60));
         add(fileChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 80, 510, -1));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/soldadoDuty.jpg"))); // NOI18N
@@ -81,37 +72,26 @@ public class Tienda extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          nuevo = new Jugador(txtNombre.getText());
-        File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getMyId()));
+       
+           addImg();
+        File id = new File(Principal.mkdirPlayerPlayer);
+        int idPlayer = id.list().length;
+        nuevo.setMyId(idPlayer-1);
+        
+       
+         File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getMyId()));
         carpeta.mkdir();
+       vehiculosUsuario(); 
         String path = carpeta.getAbsolutePath()+File.separatorChar;
+        
+        
         BinariosPlantilla<Jugador> escribir = new BinariosPlantilla<>();
         escribir.writeObjectBin(nuevo, Principal.mkdirPlayer, String.valueOf(nuevo.getMyId()), ".player");
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnimgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnimgActionPerformed
-//       fileChooser.setVisible(true);
-//      //  FileNameExtensionFilter filtro = new FileNameExtensionFilter(idioma.getProperty("imagen"),".jpg" );
-//       // fileChooser.setFileFilter(filtro);
-//        fileChooser.showOpenDialog(null);
-//        File imgChoose = fileChooser.getSelectedFile();
-//        String pathGame = imgChoose.getAbsolutePath();
-//        System.out.println(pathGame);
-//        nuevo.setPathImg(pathGame);
-
-         addImg();
-        System.out.println("name"+nuevo.dataGeneral());
-        
-        File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getMyId()));
-        carpeta.mkdir();
-        String path = carpeta.getAbsolutePath()+File.separatorChar;
-        
-        vehiculosUsuario();
-        
-        BinariosPlantilla<Jugador> escribir = new BinariosPlantilla<>();
-        escribir.writeObjectBin(nuevo, Principal.mkdirPlayer, String.valueOf(nuevo.getId()), ".player");
        
-        
-    }//GEN-LAST:event_btnimgActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
+    /**
+     * agrega los vehiculos por defecto que tiene el usuario al crearse
+     */
     public void vehiculosUsuario(){
         vehiculo = new Vehiculo[3];
         this.vehiculo[0] = new Tanque("T-34-76");
@@ -148,6 +128,9 @@ public class Tienda extends javax.swing.JPanel {
         }
         nuevo.setCurrentVehicle(vehiculo[0]);
     }
+    /**
+     * agrega un imagen al jugador
+     */
     public void addImg(){
         int resul;
         fileChooser.setVisible(true);
@@ -176,7 +159,6 @@ public class Tienda extends javax.swing.JPanel {
     
     private Jugador nuevo ;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnimg;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;

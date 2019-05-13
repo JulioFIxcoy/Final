@@ -47,7 +47,11 @@ public class Jugador implements Serializable{
     private int myId;
     private Bots bot;
     private String pathImg;
-    
+    /**
+     * constructor de jugador
+     * no aumenta el id
+     * @param nombre 
+     */
     public Jugador(String nombre) {
         
         usarVehiculo = 0;
@@ -75,15 +79,26 @@ public class Jugador implements Serializable{
        // this.nombre = pathImg;
         init();
     }
-    
+    /**
+     * regresa un objeto de tipo Bots
+     * @return 
+     */
     public Bots getBot() {
         return bot;
     }
-
+/**
+ * establece el objeto de tipo bot
+ * @param bot 
+ */
     public void setBot(Bots bot) {
         this.bot = bot;
     }
-    
+    /**
+     * establece el vehiculo que se usuara en la batalla
+     * este vehiculo se guarda en el archivo binario de jugador 
+     * y no en un archivo aparte
+     * @param usarVehiculo 
+     */
     public void setUsarVehiculo(int usarVehiculo) {
         this.usarVehiculo = usarVehiculo;
     }
@@ -111,7 +126,9 @@ public class Jugador implements Serializable{
     public void setCurrentVehicle(Vehiculo currentVehicle) {
         this.currentVehicle = currentVehicle;
     }
-    
+    /**
+     * inicializo las variables con valores predeterminados
+     */
     private void init(){
         
         icon = null;
@@ -275,55 +292,7 @@ public class Jugador implements Serializable{
         this.id = id;
     }
     
-    /**
-     * muestra un listado de vehiculos que el jugador 
-     * posee, para poder elegir uno y usarlo en la batalla
-     * @param isPc asi es pc entonces el vehiculo deberia cambiarse solo
-     * 
-     */
-//    public void cambiarVehiculo(boolean isPc){
-//        Scanner scanner = new Scanner(System.in);
-//        boolean flag = false;
-//        if (vehiculo != null) {
-//            
-//            for (int i = 0; i < vehiculo.length; i++) {
-//                if (vehiculo[i] != null) {
-//                    System.out.println("_____________________________________________________");
-//                    System.out.println((i+1));
-//                    System.out.println("Tipo: "+vehiculo[i].getClass().getSimpleName());
-//                    System.out.println("Nombre: "+vehiculo[i].getNombre());
-//                    System.out.println("Vida: "+vehiculo[i].getVida());
-//                    System.out.println("Ataque: "+vehiculo[i].getAtaque());
-//                    System.out.println("Punteria: "+vehiculo[i].getPunteria());
-//                }
-//            }
-//            System.out.println("_____________________________________________________");
-//            if (!isPc) {
-//                
-//                System.out.println("Ingrese el Numero de Vehiculo a usar");
-//                usarVehiculo = scanner.nextInt()-1;
-//
-//            }else{
-//                Random r = new Random();
-//                usarVehiculo = r.nextInt(2);
-//            }
-//            
-//            while(usarVehiculo>vehiculo.length-1) {
-//                System.out.println("Ingrese Un Numero dentro del rango de 1 a"+(vehiculo.length));
-//                 usarVehiculo = scanner.nextInt()-1;
-//            }
-//            currentVehicle = vehiculo[usarVehiculo];
-//            System.out.println("El Vehiculo ha sido reemplazado exitosamente");//*****************************************************colocar dentro de un marco***************
-//            
-//        }
-//    }
-    /*
-    metodos que debe terner el jugador
-    Atacar usando alguna de sus armas
-    ● Cambiar de vehículo
-    ● Utilizar algún objeto comprado en la tienda
-    ● Rendirse, terminando la batalla sin ganar oro o experiencia
-    */
+   
     public boolean rendirse(){
         
         this.rendido+=1;
@@ -334,21 +303,6 @@ public class Jugador implements Serializable{
         this.Fila = fila;
         this.columna = columna;
     }
-//    public  void sumarPuntos(){
-//        Random r = new Random();
-//        experiencia +=r.nextInt(nivel+experiencia)+1;
-//        for (int i = 0; i < vehiculo.length; i++) {
-//            if (vehiculo[i] != null) {
-//                if (vehiculo[i].isEnBatalla()) {
-//                    vehiculo[i].setExperiencia(r.nextInt(nivel+experiencia)+1);
-//                    vehiculo[i].setNivel(r.nextInt(nivel+experiencia)+1);
-//                    vehiculo[i].setDefensa(r.nextInt(nivel+experiencia)+1);
-//                }
-//            }
-//            
-//        }
-//    }
-
     /**
      * 
      * @return String que muestra algunos detalles/caracteristicas  del jugador

@@ -18,7 +18,12 @@ import javax.swing.border.LineBorder;
  * @author Julio
  */
 public class Lagos extends TipoTerreno implements Serializable{
-
+/**
+ * constructo de la calse lago 
+ * inicializa los valores de un lago
+ * @param destruible
+ * @param intDestruible 
+ */
     public Lagos(boolean destruible, int intDestruible) {
         super(destruible, intDestruible);
         setForeground(Color.BLACK);

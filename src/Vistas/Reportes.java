@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Reportes.Report;
 import static Vistas.Principal.idioma;
 
 /**
@@ -36,8 +37,8 @@ public class Reportes extends javax.swing.JPanel {
         lblmVehiculo = new javax.swing.JLabel();
         lblPrVehiculo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        lblblack = new javax.swing.JLabel();
 
         opcionTablero.setSize(350, 345);
         opcionTablero.setTitle(idioma.getProperty("dialogo"));
@@ -74,27 +75,34 @@ public class Reportes extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dialogo.jpg"))); // NOI18N
         opcionTablero.getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1, 335, 300));
 
-        setLayout(null);
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("Listado De Jugadores");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 360, 60));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("nada aca");
-        add(jLabel1);
-        jLabel1.setBounds(200, 250, 190, 100);
-
-        lblblack.setBackground(new java.awt.Color(0, 0, 0));
-        lblblack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tanqueGranada.jpg"))); // NOI18N
-        add(lblblack);
-        lblblack.setBounds(6, 6, 570, 770);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/reporteFondo.jpg"))); // NOI18N
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 720));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Report nuevo = new Report();
+        nuevo.writeReport();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblLstVehiculo;
     private javax.swing.JLabel lblPrVehiculo;
     private javax.swing.JLabel lblRBatalla;
-    private javax.swing.JLabel lblblack;
     private javax.swing.JLabel lblmVehiculo;
     private javax.swing.JLabel mensaje;
     private javax.swing.JDialog opcionTablero;

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Vistas;
-
+//<div>Icons made by <a href="https://www.flaticon.es/autores/dmitri13" title="dmitri13">dmitri13</a> from <a href="https://www.flaticon.es/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 import Archivos.BinariosPlantilla;
 import Archivos.RecuperarPlantilla;
 import Clases.Comodin;
@@ -92,11 +92,15 @@ public class Principal extends javax.swing.JFrame {
         itemJuegoNuevo = new javax.swing.JMenuItem();
         itemContinue = new javax.swing.JMenuItem();
         itemSaveGame = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemReports = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         itemStatistics = new javax.swing.JMenuItem();
         opciones = new javax.swing.JMenu();
         createPlayer = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         createVehicle = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         tienda = new javax.swing.JMenu();
         kit = new javax.swing.JMenuItem();
         tiendaVehiculo = new javax.swing.JMenuItem();
@@ -151,7 +155,9 @@ public class Principal extends javax.swing.JFrame {
         menuJuego.add(itemSaveGame);
 
         file.add(menuJuego);
+        file.add(jSeparator1);
 
+        itemReports.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Reporte_I.png"))); // NOI18N
         itemReports.setText(idioma.getProperty("reportes"));
         itemReports.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,7 +165,9 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         file.add(itemReports);
+        file.add(jSeparator2);
 
+        itemStatistics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/stat.png"))); // NOI18N
         itemStatistics.setText(idioma.getProperty("estadistica"));
         itemStatistics.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,6 +180,7 @@ public class Principal extends javax.swing.JFrame {
 
         opciones.setText(idioma.getProperty("opciones"));
 
+        createPlayer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario.png"))); // NOI18N
         createPlayer.setText(idioma.getProperty("cJ"));
         createPlayer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,7 +188,9 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         opciones.add(createPlayer);
+        opciones.add(jSeparator3);
 
+        createVehicle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/crear.png"))); // NOI18N
         createVehicle.setText(idioma.getProperty("cV"));
         createVehicle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,7 +198,9 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         opciones.add(createVehicle);
+        opciones.add(jSeparator4);
 
+        tienda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ti.jpg"))); // NOI18N
         tienda.setText(idioma.getProperty("tienda"));
 
         kit.setText("kit's");
@@ -520,14 +533,14 @@ try {
         mkdirPlayerPlayer = carpeta(mkdirPlayer+"Player");
     }
     public static String mkdirPlayerPlayer;
-    static String conf;
-    static String mkdirPlayer;
-    static String mkdirVehiculos;
+    public static String conf;
+    public static String mkdirPlayer;
+    public static String mkdirVehiculos;
     public static String mkdirTienda;
-    static String mkdirReportes;
-    static String mkdirSave;
-    static String mkdirTank;
-    static String mkdirAir;
+    public static String mkdirReportes;
+    public static String mkdirSave;
+    public static String mkdirTank;
+    public static String mkdirAir;
     public static Jugador uno;
     public static Jugador dos; 
     private String path;
@@ -548,6 +561,10 @@ try {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JMenuItem kit;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JMenu menuJuego;
