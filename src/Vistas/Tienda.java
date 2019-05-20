@@ -17,6 +17,7 @@ import java.io.File;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -73,20 +74,22 @@ public class Tienda extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          nuevo = new Jugador(txtNombre.getText());
        
-           addImg();
+          // addImg();
         File id = new File(Principal.mkdirPlayerPlayer);
         int idPlayer = id.list().length;
-        nuevo.setMyId(idPlayer-1);
+        nuevo.setMyId(idPlayer);
         
        
-         File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getMyId()));
+        File carpeta = new File(Principal.mkdirPlayerPlayer+String.valueOf(nuevo.getMyId()));
         carpeta.mkdir();
-       vehiculosUsuario(); 
+        vehiculosUsuario(); 
         String path = carpeta.getAbsolutePath()+File.separatorChar;
         
         
         BinariosPlantilla<Jugador> escribir = new BinariosPlantilla<>();
         escribir.writeObjectBin(nuevo, Principal.mkdirPlayer, String.valueOf(nuevo.getMyId()), ".player");
+       txtNombre.setText("");
+        JOptionPane.showMessageDialog(null, "Jugador Creado Exitosamente", "Crear", JOptionPane.INFORMATION_MESSAGE);
        
     }//GEN-LAST:event_jButton1ActionPerformed
     /**

@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
  */
 public class Jugador implements Serializable{
    
-    private static int id=-1;
+    private static int id=0;
     
     private String nombre;
     

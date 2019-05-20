@@ -6,15 +6,21 @@
 package Vistas;
 
 import Archivos.RecuperarPlantilla;
+import Clases.Avion;
 import Clases.Jugador;
+import Clases.Tanque;
+import static Vistas.Principal.dos;
 import static Vistas.Principal.idioma;
 import static Vistas.Principal.panelPrincipal;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -61,6 +67,7 @@ public class SeleccinarJugador extends javax.swing.JPanel {
         jPanel1.setForeground(new java.awt.Color(102, 102, 102));
 
         listPlayer1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), null));
+        listPlayer1.setAutoscrolls(false);
         listPlayer1.setMaximumSize(new java.awt.Dimension(205, 231));
         listPlayer1.setPreferredSize(new java.awt.Dimension(205, 231));
         listPlayer1.setVerifyInputWhenFocusTarget(false);
@@ -170,9 +177,13 @@ public class SeleccinarJugador extends javax.swing.JPanel {
         if (listPlayer1.getSelectedIndex()!= -1) {
             
           //  listPlayer1.getSelectedIndex();
+            System.out.println(listPlayer1.getSelectedIndex());
+          
             RecuperarPlantilla<Jugador> recuperar = new RecuperarPlantilla<>();
             File player = new File(Principal.mkdirPlayer+index+".player");
-            Principal.uno = recuperar.recuperar(Principal.mkdirPlayer+listPlayer1.getSelectedIndex()+".player");
+            System.out.println(player.getAbsolutePath());
+            System.out.println("player.exist() = " + player.exists());
+            Principal.uno = recuperar.recuperar(player.getAbsolutePath());
             listPlayer2.setVisible(true);
             listPlayer1.setVisible(false);
         }
@@ -224,6 +235,14 @@ public class SeleccinarJugador extends javax.swing.JPanel {
     private void pcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pcActionPerformed
         Jugador nuevo = new Jugador("PC-");
         nuevo.setNombre(nuevo.getNombre()+nuevo.getMyId());
+        Principal.dos = nuevo;
+        nuevo.setCurrentVehicle(new Avion("F-15"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("/img/avion1.jpg"));
+        Icon icono = new ImageIcon(icon.getImage().getScaledInstance(100 , 75, Image.SCALE_DEFAULT));
+        nuevo.getCurrentVehicle().setIcon(icono);
+        System.out.println(dos.getNombre());
+        
+        initGame();
     }//GEN-LAST:event_pcActionPerformed
 public void initGame(){
      int componen = panelPrincipal.getComponents().length;
